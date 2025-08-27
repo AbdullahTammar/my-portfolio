@@ -21,7 +21,6 @@ function Layout() {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
 
-  // ✅ استخدم IntersectionObserver بدل getBoundingClientRect
   useEffect(() => {
     const sections = document.querySelectorAll(".section");
 
@@ -57,19 +56,18 @@ function Layout() {
       <HeroBackground />
       <Navbar />
 
-      {/* ✅ Navigation Dots */}
+      {/* Nav dots hidden on mobile */}
       <div className={`nav-dots ${i18n.language === "ar" ? "left" : "right"}`}>
         {sections.map((sec) => (
           <div
             key={sec.id}
             className={`nav-dot ${active === sec.id ? "active" : ""}`}
             title={sec.label}
-            onClick={() => handleDotClick(sec.id)} // ✅ التنقل بالضغط
+            onClick={() => handleDotClick(sec.id)}
           />
         ))}
       </div>
 
-      {/* ✅ Scroll Snap Container */}
       <div className="scroll-container">
         <section className="section" id="home">
           <Home />

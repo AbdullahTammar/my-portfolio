@@ -6,7 +6,6 @@
   color: white;
 }
 
-/* ✅ Scroll Snap Container */
 .scroll-container {
   height: 100vh;
   width: 100%;
@@ -14,13 +13,12 @@
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  scroll-padding-top: 100px; /* حساب الـ Navbar */
+  scroll-padding-top: 100px;
 }
 .scroll-container::-webkit-scrollbar {
   display: none;
 }
 
-/* ✅ قاعدة عامة لكل sections */
 .section {
   min-height: calc(100vh - 100px);
   width: 100%;
@@ -37,14 +35,12 @@
   box-sizing: border-box;
 }
 
-/* ✅ استثناء لصفحات فيها محتوى أكثر */
 .section#projects,
 .section#experiences {
   display: block;
   padding: 100px 20px;
 }
 
-/* ✅ فاصل ناعم بين الصفحات */
 .section:not(:last-child) {
   margin-bottom: 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -55,25 +51,30 @@
   max-width: 100%;
 }
 
-/* ✅ موبايل (إلغاء snap + تهيئة العرض الطبيعي) */
+/* Mobile: disable snap and hide dots */
 @media (max-width: 768px) {
   .scroll-container {
-    scroll-snap-type: none;   /* ❌ إلغاء الـ snap */
-    scroll-padding-top: 0;    /* ❌ ما نحتاج بادينج */
+    scroll-snap-type: none;
+    scroll-padding-top: 0;
   }
 
   .section {
-    min-height: auto;         /* ✅ طول حسب المحتوى */
+    min-height: auto;
+    height: auto;
     padding: 80px 15px 40px;
     justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .section#home {
+    padding-top: 140px;
   }
 
   .nav-dots {
-    gap: 10px;
+    display: none !important;
   }
 }
 
-/* ✅ تابلت */
 @media (min-width: 768px) {
   .section {
     flex-direction: row;
@@ -86,7 +87,6 @@
   }
 }
 
-/* ✅ ديسكتوب */
 @media (min-width: 1024px) {
   .section {
     padding: 120px 60px 80px;
@@ -97,14 +97,12 @@
   }
 }
 
-/* ✅ شاشات كبيرة جداً */
 @media (min-width: 1440px) {
   .section {
     padding: 140px 80px 100px;
   }
 }
 
-/* ✅ Navigation Dots */
 .nav-dots {
   position: fixed;
   top: 50%;
@@ -129,6 +127,7 @@
   border-radius: 50%;
   background: #64748b;
   transition: all 0.3s ease;
+  pointer-events: auto;
 }
 
 .nav-dot.active {
