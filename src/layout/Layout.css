@@ -37,7 +37,7 @@
 
 .section#projects,
 .section#experiences {
-  display: block;
+  display: flex;
   padding: 100px 20px;
 }
 
