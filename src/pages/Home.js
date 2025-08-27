@@ -35,18 +35,40 @@ function Home() {
   };
 
   return (
-    <section className="relative flex flex-wrap items-center justify-between gap-10 px-[5%] py-12 sm:py-16 z-10">
+    <section className="relative flex flex-wrap items-center justify-between gap-10 lg:gap-20 px-[5%] py-12 sm:py-16 z-10">
       {/* Left side */}
-      <div className="flex-1 min-w-[280px] flex flex-col items-center text-center -mt-10 sm:-mt-40 relative">
+      <div className="flex-1 min-w-[280px] flex flex-col items-center text-center -mt-10 sm:-mt-32 relative">
         {/* الاسم */}
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="flex items-center justify-center gap-2 text-white font-extrabold text-[clamp(28px,6vw,56px)] leading-snug whitespace-nowrap"
+          className="flex items-center justify-center gap-4 text-white font-extrabold text-[clamp(28px,6vw,56px)] leading-snug whitespace-nowrap"
         >
-          <span>{t("firstName")}</span>
-          <span>{t("lastName")}</span>
+          <span>
+            {i18n.language === "en" ? (
+              <>
+                <span className="text-[clamp(40px,8vw,80px)] leading-none">
+                  {t("firstName").charAt(0)}
+                </span>
+                {t("firstName").slice(1)}
+              </>
+            ) : (
+              t("firstName")
+            )}
+          </span>
+          <span>
+            {i18n.language === "en" ? (
+              <>
+                <span className="text-[clamp(40px,8vw,80px)] leading-none">
+                  {t("lastName").charAt(0)}
+                </span>
+                {t("lastName").slice(1)}
+              </>
+            ) : (
+              t("lastName")
+            )}
+          </span>
         </motion.h1>
 
         {/* الخط المتدرج */}
@@ -122,7 +144,7 @@ function Home() {
       </div>
 
       {/* Right side */}
-      <div className="flex-[1.5] min-w-[300px] sm:min-w-[360px] flex justify-center -mt-6 relative">
+      <div className="flex-[1.5] min-w-[300px] sm:min-w-[360px] flex justify-center -mt-6 sm:-mt-20 relative">
         <TerminalCard />
       </div>
     </section>
