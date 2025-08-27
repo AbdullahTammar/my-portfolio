@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { MdTranslate, MdEmail } from "react-icons/md";
 import "./Navbar.css";
 
 function Navbar() {
-  const { t, i18n } = useTranslation("header");
+  const { i18n } = useTranslation("header");
   const [isDark, setIsDark] = useState(true);
 
-  // load saved theme
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
@@ -36,30 +36,26 @@ function Navbar() {
     }
   };
 
-  const nav = ["about", "skills", "projects", "contact"];
-
   return (
     <nav className="nav-glass">
-      <div className="brand-circle">AT</div>
-
-      <div className="nav-links">
-        {nav.map((k) => (
-          <a key={k} href={`#${k}`} className="chip-link">
-            {t(k)}
-          </a>
-        ))}
+      {/* Brand Bitmoji */}
+      <div className="brand-avatar" aria-label="brand avatar">
+        <img
+          src="/assets/TammarEmoji.png"
+          alt="Tammar Emoji"
+          className="brand-img"
+        />
       </div>
 
+      {/* Actions */}
       <div className="nav-actions">
-        <button onClick={toggleLanguage} className="chip-ghost">
-          {i18n.language === "en" ? "AR" : "EN"}
+        <button
+          onClick={toggleLanguage}
+          className="icon-btn"
+          aria-label="toggle language"
+        >
+          <MdTranslate size={20} />
         </button>
-        <button onClick={toggleDark} className="chip-ghost">
-          {isDark ? "Light" : "Dark"}
-        </button>
-        <a href="#contact" className="btn-shine">
-          {t("hireMe")}
-        </a>
       </div>
     </nav>
   );
