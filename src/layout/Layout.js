@@ -7,7 +7,6 @@ import Navbar from "../components/Navbar/Navbar";
 import Home from "../pages/Home";
 import Skills from "../pages/Skills";
 import Projects from "../pages/Projects";
-import Contact from "../pages/Contact";
 import Experiences from "../pages/Experiences";
 
 import "./Layout.css";
@@ -44,7 +43,7 @@ function Layout() {
     { id: "skills", label: "Skills" },
     { id: "experiences", label: "Experiences" },
     { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" },
+    // Contact محذوف
   ];
 
   return (
@@ -76,9 +75,7 @@ function Layout() {
         <section className="section" id="projects">
           <Projects />
         </section>
-        <section className="section" id="contact">
-          <Contact />
-        </section>
+        {/* Contact section محذوف */}
       </div>
     </div>
   );
