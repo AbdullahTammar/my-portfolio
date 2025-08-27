@@ -1,0 +1,104 @@
+.terminal-card {
+  width: 100%;
+  max-width: 800px;
+  min-width: 280px;
+  height: auto;                /* الطول على قد المحتوى */
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #374151;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  font-family: "Fira Code", monospace;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 8px;
+  margin: 0 auto;              /* توسيط التيرمنال */
+}
+
+/* Scrollbar (مخفي) */
+.terminal-card::-webkit-scrollbar {
+  display: none;
+}
+
+.terminal-card.ltr .terminal-text { direction: ltr; text-align: left; }
+.terminal-card.rtl .terminal-text { direction: rtl; text-align: right; }
+
+/* header */
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  background: rgba(17, 24, 39, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green { background: #22c55e; }
+
+/* body */
+.terminal-body {
+  position: relative;
+  padding: 18px;
+  height: auto;                /* الطول يكبر مع النص */
+}
+.terminal-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #e5e7eb;
+  white-space: pre-wrap;
+  word-break: break-word;
+  unicode-bidi: plaintext;
+}
+.terminal-ghost { visibility: hidden; }
+.terminal-overlay {
+  position: absolute;
+  top: 42px;
+  left: 18px;
+  right: 18px;
+  background: transparent;
+}
+.line { margin-bottom: 6px; }
+.prompt {
+  color: #9ca3af;
+  font-weight: 700;
+  margin-inline-end: 4px;
+}
+.command-line .prompt {
+   color: #6efaff;
+   font-weight: 700;
+   margin-inline-end: 4px;
+}
+.command-line .command {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* cursor */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #3b82f6;
+  animation: blink 1s step-start infinite;
+  position: relative;
+  top: 0;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* footer */
+.terminal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #9ca3af;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer-divider { opacity: .5; }

@@ -1,0 +1,38 @@
+:root {
+    --mx: 50%;
+    --my: 40%;
+  }
+  
+  /* الحاوية الأساسية (ثابتة بالخلفية) */
+  .hero-bg-container {
+    position: fixed;   /* ✅ مو absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;       /* ✅ ورا كل شي */
+    overflow: hidden;
+  }
+  
+  /* Spotlight + Mesh */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(600px 600px at var(--mx) var(--my), rgba(59,130,246,0.18), transparent 60%),
+      radial-gradient(900px 900px at calc(var(--mx) + 160px) calc(var(--my) + 180px), rgba(14,165,233,0.12), transparent 70%),
+      linear-gradient(120deg, rgba(6,182,212,0.08), rgba(139,92,246,0.08), rgba(59,130,246,0.08));
+    filter: saturate(1.1) blur(0.2px);
+  }
+  
+  /* Grid overlay */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(900px 900px at 50% 45%, black 60%, transparent 100%);
+  }
+  

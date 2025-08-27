@@ -1,0 +1,148 @@
+.layout-container {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #090e1a;
+  color: white;
+}
+
+/* ✅ Scroll Snap Container */
+.scroll-container {
+  height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-padding-top: 100px; /* حساب الـ Navbar */
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ✅ قاعدة عامة لكل sections */
+.section {
+  min-height: calc(100vh - 100px);
+  width: 100%;
+  scroll-snap-align: start;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 120px 20px 60px;
+  background: transparent !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ✅ استثناء لصفحات فيها محتوى أكثر */
+.section#projects,
+.section#experiences {
+  display: block;
+  padding: 100px 20px;
+}
+
+/* ✅ فاصل ناعم بين الصفحات */
+.section:not(:last-child) {
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section > * {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+/* ✅ موبايل (إلغاء snap + تهيئة العرض الطبيعي) */
+@media (max-width: 768px) {
+  .scroll-container {
+    scroll-snap-type: none;   /* ❌ إلغاء الـ snap */
+    scroll-padding-top: 0;    /* ❌ ما نحتاج بادينج */
+  }
+
+  .section {
+    min-height: auto;         /* ✅ طول حسب المحتوى */
+    padding: 80px 15px 40px;
+    justify-content: flex-start;
+  }
+
+  .nav-dots {
+    gap: 10px;
+  }
+}
+
+/* ✅ تابلت */
+@media (min-width: 768px) {
+  .section {
+    flex-direction: row;
+    gap: 40px;
+    padding: 100px 40px 60px;
+  }
+  .section#projects,
+  .section#experiences {
+    padding: 80px 30px;
+  }
+}
+
+/* ✅ ديسكتوب */
+@media (min-width: 1024px) {
+  .section {
+    padding: 120px 60px 80px;
+  }
+  .section#projects,
+  .section#experiences {
+    padding: 100px 60px;
+  }
+}
+
+/* ✅ شاشات كبيرة جداً */
+@media (min-width: 1440px) {
+  .section {
+    padding: 140px 80px 100px;
+  }
+}
+
+/* ✅ Navigation Dots */
+.nav-dots {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.nav-dots.left {
+  left: 12px;
+}
+.nav-dots.right {
+  right: 12px;
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #64748b;
+  transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+  background: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+  transform: scale(1.2);
+}
+
+@media (min-width: 1024px) {
+  .nav-dot {
+    width: 12px;
+    height: 12px;
+  }
+  .nav-dot.active {
+    transform: scale(1.3);
+  }
+}

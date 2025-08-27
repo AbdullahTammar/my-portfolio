@@ -1,13 +1,84 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 5s ease infinite;
+}
+
+/* ✅ الخطوط الأساسية للموقع */
+html {
+  font-family: 'Delius Unicase', cursive, sans-serif; /* ✅ افتراضي انجليزي */
+}
+
+html[dir="rtl"] {
+  font-family: 'Tajawal', sans-serif; /* ✅ عربي */
+}
+
+
+
+html, body, #root, .app-root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* يمنع سكرول المتصفح العادي */
+}
+
+/* 🔑 كل section لازم ياخذ طول الشاشة */
+/* 🔑 كل section لازم ياخذ طول الشاشة */
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+/* ✅ للجوال: خليه ياخذ الطول الطبيعي */
+@media (max-width: 768px) {
+  .section {
+    height: auto;       /* ياخذ طول المحتوى */
+    min-height: 100vh;  /* أقل شيء طول الشاشة */
+    align-items: flex-start; /* يبدأ من فوق */
+    justify-content: flex-start;
+  }
+}
+
+
+.layout-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.layout-content {
+  position: relative;
+  z-index: 2; /* فوق الخلفية */
+  background: transparent !important;
+}
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #06b6d4);
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }

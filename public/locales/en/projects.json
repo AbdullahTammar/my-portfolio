@@ -1,0 +1,26 @@
+{
+    "title": "Projects",
+    "list": [
+      {
+        "title": "Portfolio Website",
+        "description": "A modern multi-language personal portfolio built with React & Tailwind."
+      },
+      {
+        "title": "PMO Dashboard",
+        "description": "Oracle APEX dashboard for managing pilgrim services."
+      },
+      {
+        "title": "Mobile App",
+        "description": "Cross-platform Flutter app for booking and notifications."
+      },
+      {
+        "title": "API Gateway",
+        "description": "Node.js + Express gateway with CASL authorization and Prisma ORM."
+      },
+      {
+        "title": "Design System",
+        "description": "Reusable UI components and modern UX patterns with Figma prototypes."
+      }
+    ]
+  }
+  

@@ -1,0 +1,34 @@
+{
+    "title": "My Experiences",
+    "current": "Current",
+    "ipCertified": "Registered Intellectual Property",
+    "kamel": {
+      "title": "Owner & Founder – KAMEL App",
+      "company": "Self Project",
+      "date": "2022 - Present",
+      "shortDescription": "A comprehensive Hajj service management system serving pilgrims from arrival to departure, covering accommodation, transportation, financial operations, and reception & departure services. Enhances field service centers with real-time reports and instant dashboards."
+    },
+    "items": {
+      "professional": [
+        {
+          "title": "Application Developer",
+          "company": "PMO in Ministry of Finance (KA)",
+          "date": "2024 - Present",
+          "description": "Developing advanced government systems with React.js, Node.js, Oracle APEX, and OIC integrations."
+        },
+        {
+          "title": "Application Developer",
+          "company": "Mohammed Yousif Naghi Group ATS",
+          "date": "2022 - 2024",
+          "description": "Built front-end with React.js and back-end with Node.js, integrated BI Publisher and digital signatures, migrated to Tailwind CSS and Redux."
+        },
+        {
+          "title": "Web Developer",
+          "company": "JAMMEL Application Company",
+          "date": "2021 - 2022",
+          "description": "Led development team, created Angular/Oracle APEX solutions, handled design and deployment of Oracle Cloud services."
+        }
+      ]
+    }
+  }
+  

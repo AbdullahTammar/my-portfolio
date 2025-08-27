@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Layout from "./layout/Layout";
+import Home from "./pages/Home";
+import Skills from "./pages/Skills";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import Experiences from "./pages/Experiences"; // ✅ استيراد الصفحة الجديدة
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <div className="scroll-container">
+        <section className="section">
+          <Home />
+        </section>
+        <section className="section">
+          <Skills />
+        </section>
+        <section className="section">
+          <Experiences /> {/* ✅ صفحة خبراتي */}
+        </section>
+        <section className="section">
+          <Projects />
+        </section>
+        <section className="section">
+          <Contact />
+        </section>
+      </div>
+    </Layout>
   );
 }
 

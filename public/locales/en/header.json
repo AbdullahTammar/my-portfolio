@@ -1,0 +1,26 @@
+{
+  "firstName": "Abdullah",
+  "lastName": "Tammar",
+  "subtitle": "Full-Stack Developer",
+  "about": "About",
+  "skills": "Skills",
+  "projects": "Projects",
+  "contact": "Contact",
+  "hireMe": "Hire Me",
+
+  "intro": [
+    "I build modern, scalable full-stack web systems.",
+    "I care about clean code and performance for reliable solutions.",
+    "I believe great user experiences are the key to successful products."
+  ],
+ "commandPrompt": "➜ ~ $",
+
+  "frontend": "Frontend",
+  "backend": "Backend",
+  "databases": "Databases",
+  "tools": "Tools & DevOps",
+  "design": "Design",
+    "coreStack": "Core Stack",
+  "coreStackDesc": "Frontend • Backend • Databases • Tools • Design",
+  "commandLine": "run about me"
+}
