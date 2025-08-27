@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { FaBriefcase, FaLaptopCode, FaAward, FaMobileAlt } from "react-icons/fa";
+import { SiReact, SiOracle, SiAngular } from "react-icons/si";
 
 function Experiences() {
   const { t } = useTranslation("experiences");
@@ -11,7 +12,7 @@ function Experiences() {
   professional = professional.sort((a, b) => {
     const getEndYear = (date) => {
       if (!date) return 0;
-      if (date.toLowerCase().includes("present") || date.includes("الحالي"))
+      if (date.toLowerCase().includes("present") || date.includes("الحالي") || date.includes("حتى الآن"))
         return 9999;
       const parts = date.split("-");
       return parseInt(parts[1]) || parseInt(parts[0]) || 0;
@@ -28,7 +29,10 @@ function Experiences() {
         className="text-3xl sm:text-4xl font-bold text-white mb-6 text-center mt-0 pt-0"
       >
         {t("title")}
+        <div className="h-[3px] w-24 mx-auto mt-3 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+
       </motion.h2>
+      
 
       {kamel && (
         <motion.div
@@ -71,18 +75,26 @@ function Experiences() {
             className="flex-1 min-w-[200px] sm:min-w-[220px] max-w-[250px] bg-slate-900/70 p-5 rounded-xl shadow-md cursor-pointer transition relative"
             style={{ marginTop: `${i * 35}px` }}
           >
-            <div className="absolute -top-4 -left-4 bg-slate-800 p-3 rounded-full shadow-md">
-              {item.title.toLowerCase().includes("developer") ? (
-                <FaLaptopCode className="text-cyan-400 text-lg sm:text-xl" />
-              ) : (
-                <FaBriefcase className="text-blue-400 text-lg sm:text-xl" />
-              )}
-            </div>
+<div className="absolute -top-4 -left-4 bg-slate-800 p-3 rounded-full shadow-md">
+  {item.company.includes("K&A") ? (
+    <SiReact className="text-cyan-400 text-lg sm:text-xl" />
+  ) : item.company.includes("ناغي") || item.company.toLowerCase().includes("naghi") ? (
+    <SiOracle className="text-red-500 text-lg sm:text-xl" />
+  ) : item.company.includes("جمل") || item.company.toLowerCase().includes("jammel") ? (
+    <SiAngular className="text-red-600 text-lg sm:text-xl" />
+  ) : item.title.toLowerCase().includes("developer") ? (
+    <FaLaptopCode className="text-cyan-400 text-lg sm:text-xl" />
+  ) : (
+    <FaBriefcase className="text-blue-400 text-lg sm:text-xl" />
+  )}
+</div>
+
 
             <h4 className="text-base sm:text-lg font-semibold text-cyan-400 flex items-center gap-2">
               {item.title}
               {item.date.toLowerCase().includes("present") ||
-              item.date.includes("الحالي") ? (
+              item.date.includes("الحالي") ||
+              item.date.includes("حتى الآن") ? (
                 <span className="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded">
                   {t("current")}
                 </span>

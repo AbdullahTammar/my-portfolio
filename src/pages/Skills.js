@@ -77,6 +77,7 @@ export default function Skills() {
       items: [
         "Oracle EBS",
         "Oracle APEX",
+        "OCI",
         "MySQL",
         "SQL / PL/SQL",
         "NoSQL (MongoDB)",
@@ -86,7 +87,7 @@ export default function Skills() {
       title: t("tools"),
       icon: <FaGitAlt className="text-orange-400 text-3xl" />,
       dot: "bg-orange-400",
-      items: ["Git / GitHub", "Postman", "Nginx", "Docker", "VS Code", "IntelliJ"],
+      items: ["Git / GitHub", "Postman", "VS Code", "Android Studio"],
     },
     {
       title: t("design"),
