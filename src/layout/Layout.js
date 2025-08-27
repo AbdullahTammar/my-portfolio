@@ -47,23 +47,18 @@ function Layout() {
     { id: "contact", label: "Contact" },
   ];
 
-  const handleDotClick = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="layout-container">
       <HeroBackground />
       <Navbar />
 
-      {/* Nav dots hidden on mobile */}
+      {/* Nav dots as indicators only */}
       <div className={`nav-dots ${i18n.language === "ar" ? "left" : "right"}`}>
         {sections.map((sec) => (
           <div
             key={sec.id}
             className={`nav-dot ${active === sec.id ? "active" : ""}`}
             title={sec.label}
-            onClick={() => handleDotClick(sec.id)}
           />
         ))}
       </div>
