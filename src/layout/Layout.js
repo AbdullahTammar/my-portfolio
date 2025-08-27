@@ -13,6 +13,8 @@ import "./Layout.css";
 
 function Layout() {
   const { i18n } = useTranslation();
+
+  const [progress, setProgress] = useState({});
   const [active, setActive] = useState("home");
 
   useEffect(() => {
@@ -21,21 +23,51 @@ function Layout() {
   }, [i18n.language]);
 
   useEffect(() => {
-    const sections = document.querySelectorAll(".section");
+    const sectionsEls = document.querySelectorAll(".section");
+    const rootEl = document.querySelector(".scroll-container");
+
+    if (!sectionsEls.length || !rootEl) return;
+
+    const thresholds = Array.from({ length: 101 }, (_, i) => i / 100);
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
+        setProgress((prev) => {
+          const next = { ...prev };
+          let topId = null;
+          let topCoverage = -1;
+
+          entries.forEach((entry) => {
+            const rootH =
+              (entry.rootBounds && entry.rootBounds.height) || rootEl.clientHeight || window.innerHeight;
+            const coverage = Math.max(
+              0,
+              Math.min(1, entry.intersectionRect.height / rootH)
+            );
+
+            const id = entry.target.id;
+            next[id] = coverage;
+
+            if (coverage > topCoverage) {
+              topCoverage = coverage;
+              topId = id;
+            }
+          });
+
+          if (topId) setActive(topId);
+
+          return next;
         });
       },
-      { threshold: 0.5 }
+      {
+        root: rootEl,                 
+        threshold: thresholds,
+        rootMargin: "0px 0px 0px 0px",
+      }
     );
 
-    sections.forEach((sec) => observer.observe(sec));
-    return () => sections.forEach((sec) => observer.unobserve(sec));
+    sectionsEls.forEach((sec) => observer.observe(sec));
+    return () => sectionsEls.forEach((sec) => observer.unobserve(sec));
   }, []);
 
   const sections = [
@@ -43,7 +75,6 @@ function Layout() {
     { id: "skills", label: "Skills" },
     { id: "experiences", label: "Experiences" },
     { id: "projects", label: "Projects" },
-    // Contact محذوف
   ];
 
   return (
@@ -51,15 +82,23 @@ function Layout() {
       <HeroBackground />
       <Navbar />
 
-      {/* Nav dots as indicators only */}
+      {/* Nav dots as progress indicators */}
       <div className={`nav-dots ${i18n.language === "ar" ? "left" : "right"}`}>
-        {sections.map((sec) => (
-          <div
-            key={sec.id}
-            className={`nav-dot ${active === sec.id ? "active" : ""}`}
-            title={sec.label}
-          />
-        ))}
+        {sections.map((sec) => {
+          const p = Math.round((progress[sec.id] || 0) * 100); 
+          const scale = 1 + (p / 100) * 0.3; 
+          return (
+            <div
+              key={sec.id}
+              className={`nav-dot ${active === sec.id ? "active" : ""}`}
+              title={sec.label}
+              style={{
+                "--p": `${p}%`,
+                transform: `scale(${scale})`,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="scroll-container">
@@ -75,7 +114,6 @@ function Layout() {
         <section className="section" id="projects">
           <Projects />
         </section>
-        {/* Contact section محذوف */}
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ function Home() {
     <section className="relative flex flex-wrap items-center justify-between gap-10 lg:gap-20 px-[5%] py-12 sm:py-16 z-10">
       {/* Left side */}
       <div className="flex-1 min-w-[280px] flex flex-col items-center text-center -mt-10 sm:-mt-32 relative">
-        {/* الاسم */}
+
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -71,10 +71,8 @@ function Home() {
           </span>
         </motion.h1>
 
-        {/* الخط المتدرج */}
         <span className="block h-[3px] w-[50%] sm:w-[35%] my-3 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 shadow-[0_0_8px_rgba(59,130,246,0.5)] animate-[gradient_8s_linear_infinite]" />
 
-        {/* السب تايتل */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -84,7 +82,6 @@ function Home() {
           {t("subtitle")}
         </motion.p>
 
-        {/* ✅ روابط السوشال ميديا */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -130,8 +127,6 @@ function Home() {
             <FaSnapchatGhost />
           </a>
         </motion.div>
-
-        {/* الرمز الكبير مع حركة الماوس */}
         <motion.div
           dir="ltr"
           onMouseMove={handleMouseMove}

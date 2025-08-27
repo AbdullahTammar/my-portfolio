@@ -8,7 +8,6 @@ function Experiences() {
   const kamel = t("kamel", { returnObjects: true }) || null;
   let professional = t("items.professional", { returnObjects: true }) || [];
 
-  // ✅ رتب الوظائف
   professional = professional.sort((a, b) => {
     const getEndYear = (date) => {
       if (!date) return 0;
@@ -22,7 +21,6 @@ function Experiences() {
 
   return (
     <div className="w-full h-full px-4 sm:px-6 flex flex-col justify-start">
-      {/* العنوان */}
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -32,7 +30,6 @@ function Experiences() {
         {t("title")}
       </motion.h2>
 
-      {/* ✅ كرت KAMEL */}
       {kamel && (
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -62,7 +59,6 @@ function Experiences() {
         </motion.div>
       )}
 
-      {/* ✅ باقي الوظائف بالدرج */}
       <div className="relative flex flex-wrap justify-center gap-6 sm:gap-8 max-w-6xl mx-auto">
         {professional.map((item, i) => (
           <motion.div

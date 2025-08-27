@@ -11,13 +11,13 @@ i18n
     supportedLngs: ["en", "ar"],
     fallbackLng: "en",
     debug: true,
-    ns: ["header"],          // 👈 لازم يكون فيه namespace
-    defaultNS: "header",     // 👈 عشان لما تكتب t("codeCard.role") يعرف يبحث فيه
+    ns: ["header"],       
+    defaultNS: "header",     
     interpolation: {
       escapeValue: false,
     },
     backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json", // 👈 يتأكد إنه يقرأ header.json
+      loadPath: "/locales/{{lng}}/{{ns}}.json", 
     },
   });
 

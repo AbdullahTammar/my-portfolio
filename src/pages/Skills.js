@@ -2,15 +2,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { FaReact, FaNodeJs, FaDatabase, FaGitAlt } from "react-icons/fa";
 import {
-  SiTypescript,
-  SiAngular,
-  SiFlutter,
-  SiKotlin,
-  SiPostman,
-  SiMysql,
-  SiDocker,
-  SiNginx,
-  SiMongodb,
   SiDotnet,
   SiOracle,
   SiFigma,

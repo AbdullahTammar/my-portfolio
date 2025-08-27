@@ -61,7 +61,7 @@ function TerminalCard() {
       </div>
 
       <div className="terminal-body">
-        {/* السطر الأساسي */}
+
         <div className="line command-line">
           <span className="prompt">{t("commandPrompt")}</span>
           <span className="command">&nbsp;{t("commandLine")};</span>

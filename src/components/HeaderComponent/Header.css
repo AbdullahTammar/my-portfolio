@@ -100,7 +100,7 @@
   color: #cbd5e1;
 }
 
-/* ====== الكرت ====== */
+
 .side-card {
   width: auto;
   border-radius: 16px;
@@ -152,7 +152,7 @@
 
 .side-card-footer {
   display: flex;
-  justify-content: space-between; /* يخليهم على الأطراف */
+  justify-content: space-between; 
   align-items: center;
   padding: 10px 14px;
   font-size: 13px;
@@ -162,10 +162,10 @@
 
 .footer-left {
   font-weight: 500;
-  color: #94a3b8; /* رمادي أنعم */
+  color: #94a3b8; 
 }
 
 .footer-right {
   font-weight: 600;
-  color: #e5e7eb; /* أفتح */
+  color: #e5e7eb; 
 }

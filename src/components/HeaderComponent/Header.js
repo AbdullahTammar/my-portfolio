@@ -75,7 +75,7 @@ function Home() {
         </motion.div>
       </div>
 
-      {/* Right — نعيد تركيب التيرمنال عند تغيير اللغة */}
+
       <div className="flex-1 min-w-[350px] flex justify-center">
         <TerminalCard key={i18n.language} />
       </div>

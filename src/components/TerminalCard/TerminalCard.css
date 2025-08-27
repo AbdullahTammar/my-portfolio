@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 800px;
   min-width: 280px;
-  height: auto;                /* الطول على قد المحتوى */
+  height: auto;      
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.7);
   border: 1px solid #374151;
@@ -12,10 +12,10 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 8px;
-  margin: 0 auto;              /* توسيط التيرمنال */
+  margin: 0 auto;          
 }
 
-/* Scrollbar (مخفي) */
+/* Scrollbar */
 .terminal-card::-webkit-scrollbar {
   display: none;
 }
@@ -42,7 +42,7 @@
 .terminal-body {
   position: relative;
   padding: 18px;
-  height: auto;                /* الطول يكبر مع النص */
+  height: auto;  
 }
 .terminal-text {
   margin: 0;
