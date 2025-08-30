@@ -67,7 +67,7 @@ function DoctorAppointments() {
   {/* اللوقو */}
   <img 
     src="/assets/DoctorAppLogo.png"
-    alt="Doctor Logo"
+    alt="Cura Logo"
     style={{
       height: 50,
       maxHeight: "50px",
