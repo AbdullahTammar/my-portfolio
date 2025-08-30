@@ -65,8 +65,8 @@ function DoctorAppointments() {
   }}
 >
   {/* اللوقو */}
-  <img
-    src="/assets/doctorAppLogo.png"
+  <img 
+    src="/assets/DoctorAppLogo.png"
     alt="Doctor Logo"
     style={{
       height: 50,
