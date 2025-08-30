@@ -1,0 +1,14 @@
+{
+    "chooseSpecialty": "اختر التخصص",
+    "nearbyPlaces": "الأماكن القريبة",
+    "emergency": "طوارئ",
+    "cardiology": "قلب",
+    "ophthalmology": "عيون",
+    "pediatrics": "أطفال",
+    "general": "طب عام",
+    "nearby": [
+      { "name": "مستشفى الملك فهد", "type": "مستشفى" },
+      { "name": "صيدلية النهدي", "type": "صيدلية" }
+    ]
+  }
+  

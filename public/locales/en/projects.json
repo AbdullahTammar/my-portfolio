@@ -20,7 +20,12 @@
       {
         "title": "Design System",
         "description": "Reusable UI components and modern UX patterns with Figma prototypes."
-      }
+      },
+      { "title": "Kamel App", "description": "App description", "key": "Kamel" },
+      { "title": "Cura App", "description": "App description", "key": "Cura" },
+      { "title": "Monexa", "description": "App description", "key": "Monexa" },
+      { "title": "Stoxly", "description": "App description", "key": "Stoxly" },
+      { "title": "TicTacToe", "description": "App description", "key": "TicTacToe" }
     ]
   }
   

@@ -39,6 +39,8 @@
 .section#experiences {
   display: flex;
   padding: 100px 20px;
+  min-height: 120vh; /* ✅ أكبر من الشاشة بحيث ما يختفي من تحت */
+  padding: 80px 0; 
 }
 
 .section:not(:last-child) {
@@ -165,3 +167,13 @@
   min-height: 100vh;
   width: 100vw;
 }
+/* تعديل خاص لقسم الآيفون */
+.section#IphoneMockup {
+  min-height: 120vh; /* ✅ أكبر من الشاشة بحيث ما يختفي من تحت */
+  padding: 80px 0;   /* ✅ مسافة من فوق وتحت */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ✅ يبدأ من فوق */
+  box-sizing: border-box;
+}
+

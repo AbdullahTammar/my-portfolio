@@ -1,0 +1,31 @@
+{
+    "myCompanies": "My Companies",
+    "latestNews": "Latest News",
+    "portfolio": ["Aramco", "SABIC", "NCB"],
+    "news": [
+      {
+        "company": "Aramco",
+        "title": "Aramco announces cash dividends for shareholders",
+        "date": "2025-08-28",
+        "impact": "positive"
+      },
+      {
+        "company": "SABIC",
+        "title": "SABIC plans expansion into renewable energy",
+        "date": "2025-08-27",
+        "impact": "neutral"
+      },
+      {
+        "company": "NCB",
+        "title": "NCB reports financial results above expectations",
+        "date": "2025-08-25",
+        "impact": "positive"
+      }
+    ],
+    "impact": {
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "negative": "Negative"
+    }
+  }
+  

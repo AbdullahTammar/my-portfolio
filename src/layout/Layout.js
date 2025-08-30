@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import HeroBackground from "../components/HeroBackground/HeroBackground";
 import Navbar from "../components/Navbar/Navbar";
+import IphoneMockup from "../components/IphoneMockup/IphoneMockup";
 
 import Home from "../pages/Home";
 import Skills from "../pages/Skills";
@@ -112,8 +113,11 @@ function Layout() {
           <Experiences />
         </section>
         <section className="section" id="projects">
-          <Projects />
+        <IphoneMockup />
         </section>
+        {/* <section className="section" id="IphoneMockup">
+        <Projects />
+        </section> */}
       </div>
     </div>
   );

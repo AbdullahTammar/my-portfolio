@@ -8,11 +8,13 @@
   "contact": "Contact",
   "hireMe": "Hire Me",
 
-  "intro": [
-    "I build modern, scalable full-stack web systems.",
-    "I care about clean code and performance for reliable solutions.",
-    "I believe great user experiences are the key to successful products."
-  ],
+"intro": [
+  "Bachelor’s degree in Computer Engineering.",
+  "Oracle APEX Professional Certified.",
+  "Oracle Cloud Infrastructure (OCI) Professional Certified.",
+  "Oracle Integration Cloud (OIC) Professional Certified.",
+  "English Language Certificate – EC University, Cape Town (2015)."
+],
  "commandPrompt": "➜ ~ $",
 
   "frontend": "Frontend",

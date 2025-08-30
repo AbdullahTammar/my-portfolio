@@ -1,0 +1,14 @@
+{
+    "chooseSpecialty": "Choose a specialty",
+    "nearbyPlaces": "Nearby Places",
+    "emergency": "Emergency",
+    "cardiology": "Cardiology",
+    "ophthalmology": "Ophthalmology",
+    "pediatrics": "Pediatrics",
+    "general": "General Medicine",
+    "nearby": [
+      { "name": "King Fahd Hospital", "type": "Hospital" },
+      { "name": "Nahdi Pharmacy", "type": "Pharmacy" }
+    ]
+  }
+  
