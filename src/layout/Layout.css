@@ -36,7 +36,9 @@
 }
 
 .section#projects,
-.section#experiences {
+
+.section#experiences
+ {
   display: flex;
   padding: 100px 20px;
   min-height: 120vh; /* ✅ أكبر من الشاشة بحيث ما يختفي من تحت */
@@ -168,12 +170,40 @@
   width: 100vw;
 }
 /* تعديل خاص لقسم الآيفون */
+/* تعديل خاص لقسم الآيفون */
 .section#IphoneMockup {
-  min-height: 120vh; /* ✅ أكبر من الشاشة بحيث ما يختفي من تحت */
-  padding: 80px 0;   /* ✅ مسافة من فوق وتحت */
+  min-height: 100vh;   /* خليها قد الشاشة بالضبط */
+  padding: 40px 0;     /* قلل البادينغ */
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* ✅ يبدأ من فوق */
+  align-items: flex-start;
   box-sizing: border-box;
 }
 
+/* للجوال */
+@media (max-width: 768px) {
+  .section#IphoneMockup {
+    min-height: auto;   /* ✅ يخلي الصفحة تتمدد بالمحتوى فقط */
+    padding: 20px 0;    /* ✅ يقلل المسافة */
+    display: block;     /* ✅ خليها block عشان الكروت تنزل */
+  }
+}
+
+/* ديسكتوب */
+.section#contact {
+  display: flex;
+  min-height: 120vh;  /* أكبر من الشاشة */
+  padding: 80px 0;
+  margin-top: 60px;   /* مسافة عن اللي فوق */
+}
+
+/* موبايل */
+@media (max-width: 768px) {
+  .section#contact {
+    min-height: 15vh;  /* ✅ خليه يمشي على طول المحتوى */
+    height: auto;
+    padding: 40px 15px;
+    margin-top: 40px;  /* ✅ مسافة أصغر للجوال */
+    display: block;    /* ✅ عشان المحتوى يصف تحت بعض */
+  }
+}
