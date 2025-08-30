@@ -5,7 +5,7 @@ import DoctorAppointments from "../../pages/DoctorAppointments";
 import Monexa from "../../pages/Monexa";
 import Stoxly from "../../pages/Stoxly";
 import TicTacToe from "../../pages/TicTacToe";
-import { FaChartLine, FaGamepad } from "react-icons/fa";
+import { FaChartLine, FaGamepad , FaHourglassHalf, FaCheckCircle} from "react-icons/fa";
 import { motion } from "framer-motion";
 
 /* Icons */
@@ -369,18 +369,41 @@ function IphoneMockup() {
   
           {/* ✅ الكروت */}
           <div className="apps-cards">
-            {apps.map((app, i) => (
-              <div
-                key={i}
-                className="app-card"
-                onClick={() => triggerShake(app.key)}
-              >
-                <div className="app-card-icon">{app.icon}</div>
-                <div className="app-card-name">{app.name}</div>
-                <div className="app-card-desc">{t(`appsDesc.${app.key.toLowerCase()}`)}</div>
-              </div>
-            ))}
-          </div>
+  {apps.map((app, i) => (
+    <div
+      key={i}
+      className="app-card"
+      onClick={() => triggerShake(app.key)}
+    >
+      {/* ✅ الأيقونة في الزاوية */}
+      <div className="card-badge">
+  {["Kamel", "Monexa", "TicTacToe"].includes(app.key) ? (
+    <FaCheckCircle className="badge-icon verified" />
+  ) : (
+    <FaHourglassHalf className="badge-icon" />
+  )}
+</div>
+
+
+      <div className="app-card-icon">{app.icon}</div>
+      <div className="app-card-name">{app.name}</div>
+      <div className="app-card-desc">{t(`appsDesc.${app.key.toLowerCase()}`)}</div>
+
+      {/* زر "زيارة المنصة" لكامل فقط */}
+      {app.key === "Kamel" && (
+        <a
+          href="https://oracleapex.com/ords/r/helptest/kamel/home?"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="app-card-button"
+        >
+          {t("visit")}
+        </a>
+      )}
+    </div>
+  ))}
+</div>
+
         </div>
       </div>
     </div>

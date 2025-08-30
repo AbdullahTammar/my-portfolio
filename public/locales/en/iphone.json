@@ -14,10 +14,11 @@
     "music": "Music"
   },
   "appsDesc": {
-    "kamel": "An integrated application serving pilgrims and service providers, covering reception, housing, financial management, and departure with real-time dashboards and reports.",
+    "kamel":"An integrated app for pilgrims and service providers, managing reception, housing, finance, and departure with real-time dashboards.",
     "cura": "A digital app to book doctor appointments and access nearby clinics with emergency support.",
     "monexa": "A personal finance app to track balance, income, expenses, and recent transactions with ease.",
     "stoxly": "A modern stock app to track portfolios, daily gains, and market insights in real-time.",
     "tictactoe": "A modern Tic Tac Toe game with smart AI for fun and challenge."
-  }
+  },
+   "visit": "Visit Platform"
 }

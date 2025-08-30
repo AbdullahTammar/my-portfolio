@@ -462,3 +462,40 @@
     font-size: 13px;
   }
 }
+.app-card-button {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6); /* من أزرق لسماوي */
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.app-card-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(135deg, #0ea5e9, #2563eb); /* أزرق أغمق */
+}
+/* ✅ أيقونة الزاوية */
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+}
+
+.badge-icon {
+  font-size: 18px;
+  color: #facc15; /* أصفر ذهبي للساعة الرملية */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.badge-icon.verified {
+  color: #22c55e; /* أخضر عصري للعلامة ✅ */
+}
