@@ -192,7 +192,11 @@
 /* ديسكتوب */
 @media (min-width: 769px) {
   .section#contact {
-    display: none !important;
+    min-height: 15vh; 
+    height: auto;
+    padding: 40px 15px;
+    margin-top: 40px;
+    display: block;  
   }
 }
 /* موبايل */

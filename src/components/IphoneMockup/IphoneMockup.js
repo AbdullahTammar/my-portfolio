@@ -5,7 +5,7 @@ import DoctorAppointments from "../../pages/DoctorAppointments";
 import Monexa from "../../pages/Monexa";
 import Stoxly from "../../pages/Stoxly";
 import TicTacToe from "../../pages/TicTacToe";
-import { FaChartLine, FaGamepad , FaHourglassHalf, FaCheckCircle} from "react-icons/fa";
+import { FaChartLine, FaGamepad , FaHourglassHalf, FaCheckCircle , FaTelegramPlane, FaWhatsapp} from "react-icons/fa";
 import { motion } from "framer-motion";
 
 /* Icons */
@@ -404,8 +404,63 @@ function IphoneMockup() {
   ))}
 </div>
 
+
         </div>
       </div>
+      
+{/* ✅ الفوتر (التواصل) */}
+<div
+  style={{
+    width: "100%",
+    marginTop: "50px",
+    background: "#111827",
+    color: "#e5e7eb",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "15px",
+    fontSize: "14px",
+    fontWeight: "500",
+    padding: "12px 18px",
+    borderRadius: "12px",
+    flexWrap: "wrap",
+    textAlign: "center"
+  }}
+>
+  <span>{t("footer.message")}</span>
+  <div style={{ display: "flex", gap: "12px" }}>
+    <a
+      href="https://t.me/Uxiiic"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        color: "#229ED9",
+        textDecoration: "none",
+        fontSize: "16px",
+        display: "flex",
+        alignItems: "center",
+        gap: "6px"
+      }}
+    >
+      <FaTelegramPlane /> {t("footer.telegram")}
+    </a>
+    <a
+      href="https://wa.me/966567387950"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        color: "#25D366",
+        textDecoration: "none",
+        fontSize: "16px",
+        display: "flex",
+        alignItems: "center",
+        gap: "6px"
+      }}
+    >
+      <FaWhatsapp /> {t("footer.whatsapp")}
+    </a>
+  </div>
+</div>
     </div>
   );
   
