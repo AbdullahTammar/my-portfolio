@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { FaReact, FaNodeJs, FaDatabase, FaGitAlt } from "react-icons/fa";
-import {
-  SiDotnet,
-  SiOracle,
-  SiFigma,
-} from "react-icons/si";
+import { SiDotnet, SiOracle, SiFigma } from "react-icons/si";
 
 function Pill({ children }) {
   return (
@@ -22,7 +18,7 @@ function Card({ icon, title, items }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.45 }}
-      className="relative p-5 rounded-xl bg-slate-900/40 backdrop-blur-sm border border-slate-700/60 shadow-lg hover:shadow-cyan-500/10 hover:border-slate-600 transition"
+      className="relative p-5 rounded-xl bg-slate-900/40 backdrop-blur-sm border border-slate-700/60 shadow-lg hover:shadow-cyan-500/10 hover:border-slate-600 transition h-full"
     >
       <div className="flex items-center gap-3 mb-3">
         {icon}
@@ -98,13 +94,18 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="px-[5%] py-20 text-white relative z-10">
+    <section
+      id="skills"
+      className="px-[5%] py-16 sm:py-20 min-h-screen flex flex-col justify-start text-white relative z-10"
+    >
+      {/* Title */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-extrabold">{t("skills")}</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold">{t("skills")}</h2>
         <div className="h-[3px] w-24 mx-auto mt-3 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto">
+      {/* Core Stack Card */}
+      <div className="relative max-w-6xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -125,6 +126,7 @@ export default function Skills() {
             </p>
           </div>
 
+          {/* connector dots desktop only */}
           <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-[100%] h-10 w-[80%]">
             <div className="absolute top-4 left-0 right-0 h-px bg-slate-600/60" />
             {groups.map((g, idx) => (
@@ -141,18 +143,18 @@ export default function Skills() {
           </div>
         </motion.div>
 
-        {/* desktop + tablet grid */}
-        <div className="hidden md:grid mt-10 lg:mt-16 gap-6 md:grid-cols-2 lg:grid-cols-5">
+        {/* Desktop & Tablet grid */}
+        <div className="hidden md:grid mt-10 lg:mt-16 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {groups.map((g) => (
-            <div key={g.title} className="relative">
+            <div key={g.title} className="relative h-full">
               <div className="hidden lg:block absolute -top-8 left-1/2 -translate-x-1/2 w-px h-8 bg-slate-600/60" />
               <Card icon={g.icon} title={g.title} items={g.items} />
             </div>
           ))}
         </div>
 
-        {/* mobile tree layout */}
-        <div className="block md:hidden relative mt-8 max-h-[70vh] overflow-y-auto pr-4 custom-scroll">
+        {/* Mobile tree layout */}
+        <div className="block md:hidden relative mt-10 max-h-[60vh] overflow-y-auto pr-4 custom-scroll">
           <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-600/50" />
           <div className="space-y-6 pl-8">
             {groups.map((g, i) => (

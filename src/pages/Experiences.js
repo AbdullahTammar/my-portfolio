@@ -12,7 +12,11 @@ function Experiences() {
   professional = professional.sort((a, b) => {
     const getEndYear = (date) => {
       if (!date) return 0;
-      if (date.toLowerCase().includes("present") || date.includes("الحالي") || date.includes("حتى الآن"))
+      if (
+        date.toLowerCase().includes("present") ||
+        date.includes("الحالي") ||
+        date.includes("حتى الآن")
+      )
         return 9999;
       const parts = date.split("-");
       return parseInt(parts[1]) || parseInt(parts[0]) || 0;
@@ -21,19 +25,22 @@ function Experiences() {
   });
 
   return (
-    <div className="w-full h-full px-4 sm:px-6 flex flex-col justify-start">
+    <section
+      id="experiences"
+      className="w-full min-h-screen px-4 sm:px-6 py-16 flex flex-col justify-start items-center text-white relative z-10"
+    >
+      {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl sm:text-4xl font-bold text-white mb-6 text-center mt-0 pt-0"
+        className="text-3xl sm:text-4xl font-bold text-white mb-10 text-center"
       >
         {t("title")}
         <div className="h-[3px] w-24 mx-auto mt-3 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-
       </motion.h2>
-      
 
+      {/* Special Kamel Card */}
       {kamel && (
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -41,7 +48,7 @@ function Experiences() {
           viewport={{ once: true }}
           transition={{ duration: 0.3 }}
           whileHover={{ scale: 1.05 }}
-          className="w-full max-w-5xl mx-auto mb-8 bg-slate-900/70 p-6 rounded-xl shadow-lg relative border border-cyan-500/30 cursor-pointer"
+          className="w-full max-w-3xl mx-auto mb-12 bg-slate-900/70 p-6 rounded-xl shadow-lg relative border border-cyan-500/30 cursor-pointer"
         >
           <div className="absolute -top-5 -left-5 bg-slate-800 p-4 rounded-full shadow-md">
             <FaMobileAlt className="text-cyan-400 text-2xl" />
@@ -63,32 +70,33 @@ function Experiences() {
         </motion.div>
       )}
 
-      <div className="relative flex flex-wrap justify-center gap-6 sm:gap-8 max-w-6xl mx-auto">
+      {/* Professional Experience Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
         {professional.map((item, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.2 }}
+            transition={{ delay: i * 0.15 }}
             whileHover={{ scale: 1.05 }}
-            className="flex-1 min-w-[200px] sm:min-w-[220px] max-w-[250px] bg-slate-900/70 p-5 rounded-xl shadow-md cursor-pointer transition relative"
-            style={{ marginTop: `${i * 35}px` }}
+            className="bg-slate-900/70 p-5 rounded-xl shadow-md cursor-pointer transition relative"
           >
-<div className="absolute -top-4 -left-4 bg-slate-800 p-3 rounded-full shadow-md">
-  {item.company.includes("K&A") ? (
-    <SiReact className="text-cyan-400 text-lg sm:text-xl" />
-  ) : item.company.includes("ناغي") || item.company.toLowerCase().includes("naghi") ? (
-    <SiOracle className="text-red-500 text-lg sm:text-xl" />
-  ) : item.company.includes("جمل") || item.company.toLowerCase().includes("jammel") ? (
-    <SiAngular className="text-red-600 text-lg sm:text-xl" />
-  ) : item.title.toLowerCase().includes("developer") ? (
-    <FaLaptopCode className="text-cyan-400 text-lg sm:text-xl" />
-  ) : (
-    <FaBriefcase className="text-blue-400 text-lg sm:text-xl" />
-  )}
-</div>
-
+            <div className="absolute -top-4 -left-4 bg-slate-800 p-3 rounded-full shadow-md">
+              {item.company.includes("K&A") ? (
+                <SiReact className="text-cyan-400 text-lg sm:text-xl" />
+              ) : item.company.includes("ناغي") ||
+                item.company.toLowerCase().includes("naghi") ? (
+                <SiOracle className="text-red-500 text-lg sm:text-xl" />
+              ) : item.company.includes("جمل") ||
+                item.company.toLowerCase().includes("jammel") ? (
+                <SiAngular className="text-red-600 text-lg sm:text-xl" />
+              ) : item.title.toLowerCase().includes("developer") ? (
+                <FaLaptopCode className="text-cyan-400 text-lg sm:text-xl" />
+              ) : (
+                <FaBriefcase className="text-blue-400 text-lg sm:text-xl" />
+              )}
+            </div>
 
             <h4 className="text-base sm:text-lg font-semibold text-cyan-400 flex items-center gap-2">
               {item.title}
@@ -102,11 +110,13 @@ function Experiences() {
             </h4>
             <p className="text-slate-300 text-xs sm:text-sm">{item.company}</p>
             <p className="text-slate-400 text-xs mb-2">{item.date}</p>
-            <p className="text-slate-300 text-xs sm:text-sm">{item.description}</p>
+            <p className="text-slate-300 text-xs sm:text-sm">
+              {item.description}
+            </p>
           </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -35,15 +35,14 @@ function Home() {
   };
 
   return (
-    <section className="relative flex flex-wrap items-center justify-between gap-10 lg:gap-20 px-[5%] py-12 sm:py-16 z-10">
+    <section className="relative flex flex-col lg:flex-row flex-wrap items-center justify-between gap-4 sm:gap-6 md:gap-10 lg:gap-20 px-[5%] py-12 sm:py-16 min-h-screen z-10">
       {/* Left side */}
-      <div className="flex-1 min-w-[280px] flex flex-col items-center text-center -mt-10 sm:-mt-32 relative">
-
+      <div className="flex-1 min-w-[280px] flex flex-col items-center lg:items-start text-center lg:text-left -mt-10 sm:-mt-20 relative">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="flex items-center justify-center gap-4 text-white font-extrabold text-[clamp(28px,6vw,56px)] leading-snug whitespace-nowrap"
+          className="flex flex-nowrap items-center justify-center lg:justify-start gap-3 text-white font-extrabold text-[clamp(28px,6vw,56px)] leading-snug whitespace-nowrap"
         >
           <span>
             {i18n.language === "en" ? (
@@ -71,13 +70,13 @@ function Home() {
           </span>
         </motion.h1>
 
-        <span className="block h-[3px] w-[50%] sm:w-[35%] my-3 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 shadow-[0_0_8px_rgba(59,130,246,0.5)] animate-[gradient_8s_linear_infinite]" />
+        <span className="block h-[3px] w-[60%] sm:w-[35%] my-3 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 shadow-[0_0_8px_rgba(59,130,246,0.5)] animate-[gradient_8s_linear_infinite]" />
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-base sm:text-lg text-slate-300"
+          className="text-sm sm:text-base md:text-lg text-slate-300"
         >
           {t("subtitle")}
         </motion.p>
@@ -86,13 +85,13 @@ function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="flex items-center justify-center gap-6 mt-4"
+          className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 mt-4"
         >
           <a
             href="https://github.com/AbdullahTammar"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-300 text-2xl transition-colors hover:text-black"
+            className="text-slate-300 text-xl sm:text-2xl md:text-3xl transition-colors hover:text-black"
           >
             <FaGithub />
           </a>
@@ -100,7 +99,7 @@ function Home() {
             href="https://www.linkedin.com/in/abdullah-tammar-53634321a/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-300 text-2xl transition-colors hover:text-[#0A66C2]"
+            className="text-slate-300 text-xl sm:text-2xl md:text-3xl transition-colors hover:text-[#0A66C2]"
           >
             <FaLinkedin />
           </a>
@@ -108,13 +107,13 @@ function Home() {
             href="https://x.com/Uxiiiic"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-300 text-2xl transition-colors hover:text-black"
+            className="text-slate-300 text-xl sm:text-2xl md:text-3xl transition-colors hover:text-black"
           >
             <FaXTwitter />
           </a>
           <a
             href="mailto:Abdullah.Tamar7@gmail.com"
-            className="text-slate-300 text-2xl transition-colors hover:text-[#EA4335]"
+            className="text-slate-300 text-xl sm:text-2xl md:text-3xl transition-colors hover:text-[#EA4335]"
           >
             <MdEmail />
           </a>
@@ -122,26 +121,30 @@ function Home() {
             href="https://www.snapchat.com/add/Uxiiic"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-300 text-2xl transition-colors hover:text-[#FFFC00]"
+            className="text-slate-300 text-xl sm:text-2xl md:text-3xl transition-colors hover:text-[#FFFC00]"
           >
             <FaSnapchatGhost />
           </a>
         </motion.div>
+
         <motion.div
           dir="ltr"
           onMouseMove={handleMouseMove}
           animate={{ x: offset.x, y: offset.y }}
           transition={{ type: "spring", stiffness: 50, damping: 10 }}
-          className="font-english text-gray-400 font-extrabold text-[clamp(100px,18vw,200px)] select-none hover:text-cyan-400 hover:opacity-90 transition-colors duration-500 drop-shadow-[0_0_25px_rgba(59,130,246,0.4)]"
+          className="font-english text-gray-400 font-extrabold text-[clamp(80px,16vw,200px)] select-none hover:text-cyan-400 hover:opacity-90 transition-colors duration-500 drop-shadow-[0_0_25px_rgba(59,130,246,0.4)] mt-8"
         >
           &lt;/&gt;
         </motion.div>
       </div>
 
       {/* Right side */}
-      <div className="flex-[1.5] min-w-[300px] sm:min-w-[360px] flex justify-center -mt-6 sm:-mt-20 relative">
-        <TerminalCard />
-      </div>
+      <div className="flex-[1.5] min-w-[280px] sm:min-w-[340px] w-full lg:w-1/2
+  flex justify-center items-center
+  mt-0 sm:mt-0 md:mt-2 relative">
+  <TerminalCard />
+</div>
+
     </section>
   );
 }

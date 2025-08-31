@@ -4,11 +4,9 @@ import { useTranslation } from "react-i18next";
 import HeroBackground from "../components/HeroBackground/HeroBackground";
 import Navbar from "../components/Navbar/Navbar";
 import IphoneMockup from "../components/IphoneMockup/IphoneMockup";
-import Contact from "../pages/Contact";
 
 import Home from "../pages/Home";
 import Skills from "../pages/Skills";
-import Projects from "../pages/Projects";
 import Experiences from "../pages/Experiences";
 
 import "./Layout.css";
@@ -62,7 +60,7 @@ function Layout() {
         });
       },
       {
-        root: rootEl,                 
+        root: rootEl,
         threshold: thresholds,
         rootMargin: "0px 0px 0px 0px",
       }
@@ -87,8 +85,8 @@ function Layout() {
       {/* Nav dots as progress indicators */}
       <div className={`nav-dots ${i18n.language === "ar" ? "left" : "right"}`}>
         {sections.map((sec) => {
-          const p = Math.round((progress[sec.id] || 0) * 100); 
-          const scale = 1 + (p / 100) * 0.3; 
+          const p = Math.round((progress[sec.id] || 0) * 100);
+          const scale = 1 + (p / 100) * 0.3;
           return (
             <div
               key={sec.id}
@@ -114,10 +112,7 @@ function Layout() {
           <Experiences />
         </section>
         <section className="section" id="projects">
-        <IphoneMockup />
-        </section>
-        <section className="section" id="contact">
-        <Contact />
+          <IphoneMockup />
         </section>
       </div>
     </div>

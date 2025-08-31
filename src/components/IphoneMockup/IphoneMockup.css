@@ -1,501 +1,468 @@
-/* ========== Device Wrapper ========== */
-.iphone16-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  pointer-events: auto;
-  user-select: none;
-  font-family: system-ui, sans-serif;
-  transform: scale(1);
-  transform-origin: center center;
-  margin-top: -90px
+:root{
+  --iphone-w: clamp(280px, 24vw, 360px);
+  --iphone-ratio: 2.0625;
+  --iphone-h: calc(var(--iphone-w) * var(--iphone-ratio));
+  --gap-x: 10px;   /* مسافة أفقية صغيرة جدًا بين الآيفون والكروت */
+  --gap-y: 12px;   /* مسافة رأسية بسيطة بين الصفوف */
 }
 
-/* ========== Device Frame ========== */
-.iphone16-device {
-  position: relative;
-  width: 320px;
-  height: 660px;
-  border-radius: 42px;
-  background: #0a0a0a;
+/* ===== Centered, stacked layout: title → phone → cards ===== */
+.iphone16-page{
+  display: grid;
+  grid-template-columns: var(--iphone-w) minmax(0,1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    ".      title"   /* خلية يسار فاضية، العنوان يمين */
+    "phone  cards";  /* الآيفون يسار والكروت يمين */
+  column-gap: var(--gap-x);
+  row-gap: var(--gap-y);
+  align-items: start;          /* يبدأوا من أعلى */
+  justify-content: center;     /* يظلوا في الوسط أفقياً */
+  padding: 28px 20px;
+}
+.cards-title{ grid-area: title; }
+.iphone16-wrapper{ grid-area: phone; }
+.apps-cards{ grid-area: cards; }
+
+/* Hide iPhone on mobile, keep cards centered */
+@media (max-width: 768px){
+  .iphone16-page{ display:block; padding:20px 16px; }
+  .iphone16-wrapper{ display:none; }   /* إخفاء الآيفون على الشاشات الصغيرة */
+  .cards-title{ margin-bottom: 12px; } /* فراغ بسيط قبل الكروت */
+}
+/* ===== Device Wrapper ===== */
+.iphone16-wrapper{
+  width: var(--iphone-w);
+  display: flex; align-items: center; justify-content: center;
+  box-sizing: border-box; pointer-events: auto; user-select: none;
+  font-family: system-ui, sans-serif; transform-origin: center center;
+}
+/* Short viewports: scale to avoid clipping */
+@media (max-height: 750px){ .iphone16-wrapper{ transform: scale(0.95); } }
+@media (max-height: 680px){ .iphone16-wrapper{ transform: scale(0.88); } }
+@media (max-height: 600px){ .iphone16-wrapper{ transform: scale(0.80); } }
+@media (max-height: 520px){ .iphone16-wrapper{ transform: scale(0.70); } }
+
+/* ===== Device Frame ===== */
+.iphone16-device{
+  position: relative; width: var(--iphone-w); height: var(--iphone-h);
+  border-radius: 42px; background: #0a0a0a; border: 10px solid #0a0a0a;
+  overflow: hidden; touch-action: none; transition: box-shadow .4s ease;
   box-shadow: 0 20px 60px rgba(0,0,0,0.45),
     inset 0 0 0 2px rgba(255,255,255,0.04),
-    0 0 25px rgba(255, 255, 255, 0.25),
-    0 0 45px rgba(255, 255, 255, 0.2),
-    0 0 80px rgba(255, 255, 255, 0.15);
-  border: 10px solid #0a0a0a;
-  overflow: hidden;
-  transition: box-shadow 0.4s ease;
-  touch-action: none; 
+    0 0 25px rgba(255,255,255,0.25),
+    0 0 45px rgba(255,255,255,0.2),
+    0 0 80px rgba(255,255,255,0.15);
 }
-
-.iphone16-device:hover {
+.iphone16-device:hover{
   box-shadow: 0 20px 60px rgba(0,0,0,0.45),
     inset 0 0 0 2px rgba(255,255,255,0.04),
-    0 0 35px rgba(255, 255, 255, 0.35),
-    0 0 60px rgba(255, 255, 255, 0.25),
-    0 0 100px rgba(255, 255, 255, 0.2);
+    0 0 35px rgba(255,255,255,0.35),
+    0 0 60px rgba(255,255,255,0.25),
+    0 0 100px rgba(255,255,255,0.2);
 }
 
-/* ========== Side Buttons ========== */
-.sidebtn { position: absolute; width: 3px; background: #2f2f32; border-radius: 2px; }
-.sidebtn.right.power { right: -6px; top: 110px; height: 70px; }
-.sidebtn.right.camera { right: -6px; top: 200px; height: 36px; }
-.sidebtn.left.volup { left: -6px; top: 100px; height: 50px; }
-.sidebtn.left.voldown { left: -6px; top: 160px; height: 50px; }
+/* ===== Side Buttons ===== */
+.sidebtn{ position:absolute; width:3px; background:#2f2f32; border-radius:2px; }
+.sidebtn.right.power{ right:-6px; top:110px; height:70px; }
+.sidebtn.right.camera{ right:-6px; top:200px; height:36px; }
+.sidebtn.left.volup{ left:-6px; top:100px; height:50px; }
+.sidebtn.left.voldown{ left:-6px; top:160px; height:50px; }
 
-/* ========== سماعة + كاميرا + Dynamic Island ثابتة ========== */
-.notch-elements {
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 999999 !important;
-  pointer-events: none;
-  flex-direction: row;
-  direction: ltr; 
+/* ===== Notch / Camera / Dynamic Island ===== */
+.notch-elements{
+  position:absolute; top:7px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:10px; z-index:999999 !important;
+  pointer-events:none; direction:ltr;
+}
+.cam-dot{ width:12px; height:12px; background:#1c1c1c; border-radius:50%; border:2px solid #555; box-shadow:0 0 4px rgba(255,255,255,0.6); }
+.cam-dot.small{ width:8px; height:8px; box-shadow:0 0 3px rgba(255,255,255,0.5); }
+.earpiece{ width:48px; height:5px; background:#444; border-radius:3px; box-shadow:inset 0 0 2px rgba(255,255,255,0.8); }
+.dynamic-island{
+  position:absolute; top:-4px; left:50%; transform:translateX(-50%);
+  width:44%; max-width:150px; height:32px; background:#000; border-radius:18px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.45); z-index:999998 !important; pointer-events:none;
 }
 
-.cam-dot {
-  width: 12px;
-  height: 12px;
-  background: #1c1c1c;
-  border-radius: 50%;
-  border: 2px solid #555;
-  box-shadow: 0 0 4px rgba(255,255,255,0.6);
+/* ===== Screen & Status Bar ===== */
+.iphone16-screen{ position:relative; width:100%; height:100%; border-radius:32px; overflow:hidden; transition:color .3s, background .3s; }
+.statusbar{
+  position:absolute; inset:0 0 auto 0; height:36px; padding:0 14px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:12px; z-index:150; pointer-events:none; transition:color .3s, background .3s;
 }
-.cam-dot.small {
-  width: 8px;
-  height: 8px;
-  background: #1c1c1c;
-  border: 2px solid #555;
-  box-shadow: 0 0 3px rgba(255,255,255,0.5);
-}
+.status-left{ font-weight:600; letter-spacing:.2px; }
+.status-right{ display:flex; align-items:center; gap:8px; }
+.signal-bars{ display:flex; align-items:flex-end; gap:2px; margin-right:6px; }
+.signal-bars .bar{ width:3px; border-radius:1px; opacity:.9; background:currentColor; }
+.signal-bars .bar1{ height:6px; } .signal-bars .bar2{ height:10px; } .signal-bars .bar3{ height:14px; }
+.status-right .battery{ width:22px; height:10px; border:1.5px solid currentColor; border-radius:3px; position:relative; }
+.status-right .battery::after{ content:""; position:absolute; top:2px; left:2px; right:8px; bottom:2px; background:currentColor; }
 
-.earpiece {
-  width: 48px;
-  height: 5px;
-  background: #444;
-  border-radius: 3px;
-  box-shadow: inset 0 0 2px rgba(255,255,255,0.8);
-}
+/* ===== Home layer ===== */
+.home-layer{ position:absolute; inset:0; z-index:1; }
 
-.dynamic-island {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 44%;
-  max-width: 150px;
-  height: 32px;
-  background: #000;
-  border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.45);
-  z-index: 999998 !important;
-  pointer-events: none;
+/* ===== Responsive internals (proportional to phone size) ===== */
+.widgets{
+  position:absolute;
+  top: calc(var(--iphone-h) * 0.075);
+  left: calc(var(--iphone-w) * 0.045);
+  right: calc(var(--iphone-w) * 0.045);
+  display:flex; gap: calc(var(--iphone-w) * 0.03);
+  justify-content:space-between;
 }
-
-/* ========== Screen Background ========== */
-.iphone16-screen {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 32px;
-  overflow: hidden;
-  transition: color 0.3s ease, background 0.3s ease;
-}
-
-/* ========== Status Bar ========== */
-.statusbar {
-  position: absolute;
-  top: 0;
-  left: 0; right: 0;
-  padding: 0 14px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  z-index: 150;
-  pointer-events: none;
-  transition: color 0.3s ease, background 0.3s ease;
-}
-.status-left { font-weight: 600; letter-spacing: 0.2px; }
-.status-right { display: flex; align-items: center; gap: 8px; }
-.signal-bars { display: flex; align-items: flex-end; gap: 2px; margin-right: 6px; }
-.signal-bars .bar { width: 3px; border-radius: 1px; opacity: 0.9; background: currentColor; }
-.signal-bars .bar1 { height: 6px; }
-.signal-bars .bar2 { height: 10px; }
-.signal-bars .bar3 { height: 14px; }
-.status-right .battery { width: 22px; height: 10px; border: 1.5px solid currentColor; border-radius: 3px; position: relative; }
-.status-right .battery::after { content: ""; position: absolute; top: 2px; left: 2px; right: 8px; bottom: 2px; background: currentColor; }
-
-/* ========== Home Layer ========== */
-.home-layer { position: absolute; inset: 0; z-index: 1; }
-
-/* ✅ Widgets */
-.widgets {
-  position: absolute;
-  top: 50px;
-  left: 16px;
-  right: 16px;
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-}
-.widget {
-  flex: 1;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+.widget{
+  flex:1; padding: calc(var(--iphone-w) * 0.035) calc(var(--iphone-w) * 0.04);
+  border-radius: calc(var(--iphone-w) * 0.045);
+  background: rgba(255,255,255,0.18); backdrop-filter: blur(14px);
+  color:#fff; font-size: calc(var(--iphone-w) * 0.035); font-weight:500;
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
-.widget .big {
-  font-size: 18px;
-  font-weight: 700;
-}
-.widget .small {
-  font-size: 12px;
-  opacity: 0.85;
-  margin-top: 2px;
-}
+.widget .big{ font-size: calc(var(--iphone-w) * 0.05); font-weight:700; }
+.widget .small{ font-size: calc(var(--iphone-w) * 0.03); opacity:.85; margin-top:2px; }
 
-/* ========== Home Apps ========== */
-.icons-grid {
-  position: absolute;
-  top: 150px;
-  left: 16px; right: 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px 12px;
+.icons-grid{
+  position:absolute;
+  top: calc(var(--iphone-h) * 0.23);
+  left: calc(var(--iphone-w) * 0.045);
+  right: calc(var(--iphone-w) * 0.045);
+  display:grid; grid-template-columns: repeat(4,1fr);
+  gap: calc(var(--iphone-w) * 0.035) calc(var(--iphone-w) * 0.03);
 }
-.icon-wrap { display: flex; flex-direction: column; align-items: center; user-select: none; }
-.icon {
-  width: 58px; height: 58px; border-radius: 18px;
-  display: grid; place-items: center;
-  font-size: 26px; color: white;
-  box-shadow: 0 10px 18px rgba(0,0,0,0.35),
-              inset 0 0 0 0.5px rgba(255,255,255,0.2);
-  background: transparent;
-  overflow: hidden;
-  transition: transform .15s ease;
+.icon-wrap{ display:flex; flex-direction:column; align-items:center; user-select:none; cursor:pointer; }
+.icon{
+  width:  calc(var(--iphone-w) * 0.18);
+  height: calc(var(--iphone-w) * 0.18);
+  border-radius: calc(var(--iphone-w) * 0.05);
+  display:grid; place-items:center;
+  font-size: calc(var(--iphone-w) * 0.07); color:#fff; background:transparent; overflow:hidden;
+  box-shadow:0 10px 18px rgba(0,0,0,0.35), inset 0 0 0 .5px rgba(255,255,255,0.2);
+  transition:transform .15s ease;
 }
-.icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
-.icon:active { transform: scale(0.98); }
-.icon-label { margin-top: 6px; font-size: 11px; color: #f2f2f7; }
-.icons-grid .icon-wrap {
-  cursor: pointer;
-}
+.icon img{ width:100%; height:100%; object-fit:cover; border-radius: calc(var(--iphone-w) * 0.03); }
+.icon:active{ transform: scale(0.98); }
+.icon-label{ margin-top: 6px; font-size: calc(var(--iphone-w) * 0.03); color:#f2f2f7; }
 
 /* Dock */
-.dock {
-  position: absolute;
-  left: 4%; right: 4%; bottom: 14px;
-  height: 82px;
+.dock{
+  position:absolute; left: 4%; right: 4%;
+  bottom: calc(var(--iphone-h) * 0.02);
+  height: calc(var(--iphone-h) * 0.12);
   border-radius: 24px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  column-gap: 6px;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 28px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(20px);
+  display:grid; grid-auto-flow:column; grid-auto-columns:max-content;
+  column-gap: 6px; align-items:center; justify-content:center;
+  padding: calc(var(--iphone-w) * 0.035) calc(var(--iphone-w) * 0.07);
+  background: rgba(255,255,255,0.1); backdrop-filter: blur(20px);
   z-index: 50;
 }
-.dock .icon {
-  width: 58px; height: 58px; border-radius: 18px;
-  font-size: 26px;
-  box-shadow: 0 10px 18px rgba(0,0,0,0.35),
-              inset 0 0 0 0.5px rgba(255,255,255,0.2);
+.dock .icon{
+  width:  calc(var(--iphone-w) * 0.18);
+  height: calc(var(--iphone-w) * 0.18);
+  border-radius: calc(var(--iphone-w) * 0.05);
+  font-size: calc(var(--iphone-w) * 0.07);
+  box-shadow:0 10px 18px rgba(0,0,0,0.35), inset 0 0 0 .5px rgba(255,255,255,0.2);
 }
 
-/* Gradients for dock apps */
-.icon--phone { background: radial-gradient(circle at 30% 20%, #76f0a7, #0bb36d 60%, #089a5c 100%); }
-.icon--messages { background: radial-gradient(circle at 30% 20%, #9bf79a, #28cf66 60%, #15a64f 100%); }
-.icon--safari { background: radial-gradient(circle at 30% 20%, #8fd3ff, #2a86ff 60%, #1c64f2 100%); }
-.icon--music { background: radial-gradient(circle at 30% 20%, #ff9bd6, #ff3b7f 60%, #d70f58 100%); }
+/* Dock gradients */
+.icon--phone{    background: radial-gradient(circle at 30% 20%, #76f0a7, #0bb36d 60%, #089a5c 100%); }
+.icon--messages{ background: radial-gradient(circle at 30% 20%, #9bf79a, #28cf66 60%, #15a64f 100%); }
+.icon--safari{   background: radial-gradient(circle at 30% 20%, #8fd3ff, #2a86ff 60%, #1c64f2 100%); }
+.icon--music{    background: radial-gradient(circle at 30% 20%, #ff9bd6, #ff3b7f 60%, #d70f58 100%); }
 
-/* ========== App Screens ========== */
-.app-screen {
-  position: absolute;
-  top: 36px;
-  bottom: 0; 
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  will-change: transform, opacity;
-  transition: transform 280ms cubic-bezier(.22,.61,.36,1), opacity 280ms ease, background 0.3s;
-  z-index: 5;
+/* App screen */
+.app-screen{
+  position:absolute; top:36px; bottom:0; left:0; right:0;
+  display:flex; flex-direction:column; overflow:hidden; will-change:transform, opacity;
+  transition:transform 280ms cubic-bezier(.22,.61,.36,1), opacity 280ms ease, background .3s; z-index:5;
 }
-.app-screen.open { transform: translateY(0); opacity: 1; }
-.app-screen.closing { transform: translateY(-100%); opacity: 0.9; }
+.app-screen.open{ transform: translateY(0); opacity:1; }
+.app-screen.closing{ transform: translateY(-100%); opacity:.9; }
 
-/* ✅ Light theme */
-.iphone16-screen.light,
-.app-screen.light {
-  background-color: #fff;
-  color: #000;
-}
-.iphone16-screen.light .statusbar {
-  background: #fff;
-  color: #000;
-}
+/* Themes */
+.iphone16-screen.light, .app-screen.light{ background:#fff; color:#000; }
+.iphone16-screen.light .statusbar{ background:#fff; color:#000; }
+.iphone16-screen.dark, .app-screen.dark{ background:#000; color:#fff; }
+.iphone16-screen.dark .statusbar{ background:#0c0c0c; color:#fff; }
 
-/* ✅ Dark theme */
-.iphone16-screen.dark,
-.app-screen.dark {
-  background-color: #000;
-  color: #fff;
+/* Scroll/gesture */
+.app-body.scrollable{ flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; cursor:grab; padding-bottom:8px; }
+.app-body.scrollable.dragging{ cursor:grabbing; }
+.app-body.scrollable::-webkit-scrollbar{ display:none; }
+.gesture-hitbox{ height:24px; display:flex; justify-content:center; align-items:center; background:rgba(255,255,255,0.12); backdrop-filter:blur(16px); border-radius:12px; cursor:pointer; }
+.gesture-bar{ height:5px; width:120px; border-radius:3px; transition:background .3s; }
+.light .gesture-bar{ background:#444; } .dark .gesture-bar{ background:#ddd; }
+
+/* ===== Cards ===== */
+.apps-cards{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; width:100%; max-width:1100px; margin: 0 auto; /* centered */
 }
-.iphone16-screen.dark .statusbar {
-  background: #0c0c0c;
-  color: #fff;
+@media (max-width: 1024px){
+  .apps-cards{ max-width: 820px; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); }
+}
+@media (max-width: 768px){
+  .apps-cards{ grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:16px; }
 }
 
-/* Scrollable body */
-.app-body.scrollable {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  cursor: grab;
-  padding-bottom: 8px;
+.app-card{
+  position:relative; background: rgba(15,23,42,0.7);
+  border-radius:14px; padding:22px;
+  border:1px solid rgba(34,211,238,0.3);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  cursor:pointer; transition: transform .25s, box-shadow .25s;
 }
-.app-body.scrollable.dragging { cursor: grabbing; }
-.app-body.scrollable::-webkit-scrollbar { display: none; }
+.app-card:hover{ transform: translateY(-6px); box-shadow:0 12px 28px rgba(0,0,0,0.45); }
+.app-card-icon{ width:64px; height:64px; margin:0 auto 14px; border-radius:18px; display:flex; align-items:center; justify-content:center; background:rgba(30,41,59,0.8); color:#22d3ee; font-size:28px; box-shadow:0 4px 12px rgba(0,0,0,0.35); }
+.app-card-name{ font-size:20px; font-weight:700; color:#22d3ee; margin-bottom:4px; }
+.app-card-desc{ font-size:14px; color:#e2e8f0; line-height:1.6; }
+.card-badge{ position:absolute; top:12px; right:12px; z-index:10; }
+.badge-icon{ font-size:18px; color:#facc15; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+.badge-icon.verified{ color:#22c55e; }
+.app-card-button{
+  display:inline-block; margin-top:12px; padding:10px 16px; font-size:14px; font-weight:600; color:#fff;
+  background: linear-gradient(135deg,#06b6d4,#3b82f6);
+  border-radius:10px; text-decoration:none; text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.35); transition: all .3s;
+}
+.app-card-button:hover{ transform: translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.45); background: linear-gradient(135deg,#0ea5e9,#2563eb); }
 
-/* Gesture */
-.gesture-hitbox {
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(16px);
+/* Shake */
+.icon-wrap.shake{ animation: shakeAnim .6s ease; }
+@keyframes shakeAnim{
+  0%{ transform: rotate(0); } 20%{ transform: rotate(-6deg); }
+  40%{ transform: rotate(6deg); } 60%{ transform: rotate(-4deg); }
+  80%{ transform: rotate(4deg); } 100%{ transform: rotate(0); }
+}
+
+/* Mobile hard hide (put at the very end of the file) */
+@media only screen and (max-width: 768px) {
+  .iphone16-wrapper { 
+    display: none !important;   /* أقوى من أي display سابق */
+  }
+  .iphone16-page {
+    padding: 16px 12px;         /* مسافة بسيطة للكروت */
+  }
+}
+@media (max-width: 820px) { .iphone16-wrapper { display: none !important; } }
+:root{
+  --footer-space-top: 28px;     /* مسافة فوق الفوتر */
+  --footer-space-bottom: 80px;  /* مسافة تحت الفوتر */
+}
+
+/* Footer عادي غير مثبت، يجي آخر الصفحة تحت الكروت/الآيفون */
+.contact-footer{
+  position: static;
+  width: min(1100px, calc(100% - 24px));
+  margin: var(--footer-space-top) auto var(--footer-space-bottom);
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap; text-align: center;
+
+  background: #111827; color: #e5e7eb;
+  padding: 12px 18px;
   border-radius: 12px;
-  cursor: pointer;
-}
-.gesture-bar {
-  height: 5px; width: 120px;
-  border-radius: 3px;
-  transition: background 0.3s ease;
-}
-.light .gesture-bar { background: #444; }
-.dark .gesture-bar { background: #ddd; }
-
-/* ✅ Responsive Scaling */
-@media (max-height: 750px) {
-  .iphone16-wrapper { transform: scale(0.9); }
-}
-@media (max-height: 680px) {
-  .iphone16-wrapper { transform: scale(0.8); }
-}
-@media (max-height: 600px) {
-  .iphone16-wrapper { transform: scale(0.7); }
-}
-@media (max-height: 520px) {
-  .iphone16-wrapper { transform: scale(0.6); }
+  box-shadow: 0 6px 18px rgba(0,0,0,0.30);
 }
 
-/* ✅ توزيع الصفحة */
-.iphone16-page {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px;
+.contact-footer__links{ display:flex; gap:12px; flex-wrap:wrap; }
+.contact-footer__link{
+  color: inherit; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: clamp(13px, 1.6vw, 16px);
 }
+.contact-footer__link--tg{ color:#229ED9; }
+.contact-footer__link--wa{ color:#25D366; }
 
-/* ✅ كروت التطبيقات */.apps-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
-  gap: 24px;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.app-card {
-  position: relative;
-  background: rgba(15, 23, 42, 0.7); /* bg-slate-900/70 */
-  border-radius: 14px; /* rounded-xl */
-  padding: 24px; /* p-6 */
-  border: 1px solid rgba(34, 211, 238, 0.3); /* border-cyan-500/30 */
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35); /* shadow-lg */
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.app-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
-}
-
-/* ✅ أيقونة عائمة */
-.app-card-icon {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 16px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(30, 41, 59, 0.8); /* bg-slate-800 */
-  color: #22d3ee; /* text-cyan-400 */
-  font-size: 28px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+/* شاشات صغيرة جدًا: تضييق بسيط */
+@media (max-width: 420px){
+  .contact-footer{
+    gap: 8px;
+    padding: 10px 12px;
+    width: min(1100px, calc(100% - 16px));
+    border-radius: 10px;
+    margin: var(--footer-space-top) auto
+    calc(var(--footer-space-bottom) + env(safe-area-inset-bottom));
+  }
 }
 
 
-/* ✅ النصوص */
-.app-card-name {
-  font-size: 20px;
-  font-weight: 700;
-  color: #22d3ee; /* text-cyan-400 */
-  margin-bottom: 4px;
-}
-.app-card-sub {
-  font-size: 14px;
-  color: #cbd5e1; /* text-slate-300 */
-}
-.app-card-date {
-  font-size: 12px;
-  color: #94a3b8; /* text-slate-400 */
-  margin-bottom: 12px;
-}
-.app-card-desc {
-  font-size: 14px;
-  color: #e2e8f0; /* text-slate-200 */
-  line-height: 1.6;
+
+
+/* >=1883px: خلّي عمود الكروت بمقاس محتواه، وقلّل المسافة بينه وبين الآيفون */
+@media (min-width: 1883px){
+  .iphone16-page{
+    /* بدل 1fr: نخليه يلفّ على المحتوى حتى 1100px */
+    grid-template-columns: var(--iphone-w) fit-content(1100px);
+    /* المسافة الحقيقيّة بين العمودين */
+    --gap-x: 8px; /* جرّب 6px أو 4px لو تبغى أقل */
+  }
+
+  .apps-cards{
+    /* لا نوسّط داخل العمود، التوسيط يصير على مستوى الشبكة كلها */
+    margin: 0;
+    max-width: 1100px;  /* نفس القيمة اللي تستخدمها للكروت */
+  }
 }
 
-/* ✅ اهتزاز الايفون */
-.icon-wrap.shake {
-  animation: shakeAnim 0.6s ease;
-}
-@keyframes shakeAnim {
-  0% { transform: rotate(0deg); }
-  20% { transform: rotate(-6deg); }
-  40% { transform: rotate(6deg); }
-  60% { transform: rotate(-4deg); }
-  80% { transform: rotate(4deg); }
-  100% { transform: rotate(0deg); }
+/* أضيق أكثر للشاشات الأعرض جدًا */
+@media (min-width: 2200px){
+  .iphone16-page{
+    --gap-x: 50px; /* حتى 2px أو 0px لو تبغى شبه ملاصق */
+  }
 }
 
-/* ✅ توزيع الصفحة بشكل مرن */
-.iphone16-page {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px;
-  flex-wrap: wrap; /* يخلي العناصر تنزل تحت بعض لو ما في مساحة */
+
+
+
+
+
+
+
+/* ==================== Plasma / 4K ==================== */
+@media (min-width: 2560px){
+  /* كبّر الآيفون شوية */
+  :root{
+    --iphone-w: clamp(360px, 18vw, 520px);
+  }
+
+  /* خلّي عمود الكروت يلف على المحتوى أعرض شوية + قربهم */
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(1280px);
+    --gap-x: 40px; /* غيّرها 30px/20px إذا تبغى أقرب */
+  }
+
+  /* أعطي الكروت عرض أكبر ومسافات أوسع بين الكروت */
+  .apps-cards{
+    max-width: 1280px;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin: 0; /* نخلي التوسيط على مستوى .iphone16-page */
+  }
+
+  /* لمسة حجم بسيطة للكروت */
+  .app-card{ padding: 26px; border-radius: 16px; }
+  .app-card-name{ font-size: 22px; }
+  .app-card-desc{ font-size: 16px; }
 }
 
-/* ✅ الشاشات المتوسطة (تابلت) */
-@media (max-width: 1024px) {
-  .iphone16-page {
-    flex-direction: column;
-    align-items: center;
+/* ==================== 8K أو شاشات عرض ضخمة ==================== */
+@media (min-width: 3840px){
+  :root{
+    --iphone-w: clamp(420px, 16vw, 600px);
+  }
+
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(1400px);
+    --gap-x: 50px; /* تقدر تخليها 40px لو تبغى أقرب */
+  }
+
+  .apps-cards{
+    max-width: 1400px;
+    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+/* تذكير: إعدادك هذا ممتاز وخلِّه زي ما هو لو عجبك */
+@media (min-width: 1883px){
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(1100px);
+    --gap-x: 8px;
+  }
+  .apps-cards{
+    margin: 0;
+    max-width: 1100px;
+  }
+}
+
+/* وإعدادك المخصص فوق 2200px (خليه أو عدِّله براحتك) */
+@media (min-width: 2200px){
+  .iphone16-page{
+    --gap-x: 50px;
+  }
+}
+
+
+
+
+
+
+/* 5K ريتينا تقريبًا (5120 فعلية ≈ 2560 CSS px) */
+@media (min-width: 2560px){
+  :root{
+    --iphone-w: clamp(380px, 17vw, 540px);
+  }
+  .iphone16-page{
+    /* حافظ على تمركز العمودين وقَرِّبهم شوي */
+    grid-template-columns: var(--iphone-w) fit-content(1360px);
+    --gap-x: 24px; /* قلّلها 16px لو تبغى أقرب */
+  }
+  .apps-cards{
+    max-width: 1360px;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    margin: 0;
+  }
+}
+
+/* شاشات أعرض: 6K/ألتراوايد كبيرة (CSS width ~3200+) */
+@media (min-width: 3200px){
+  :root{ --iphone-w: clamp(420px, 16vw, 600px); }
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(1500px);
+    --gap-x: 20px; /* صغير ولطيف */
+  }
+  .apps-cards{
+    max-width: 1500px;
+    gap: 26px;
+    grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+  }
+}
+
+/* 8K ريتينا/بدون ريتينا (CSS width 3840+) */
+@media (min-width: 3840px){
+  :root{ --iphone-w: clamp(460px, 15vw, 680px); }
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(1680px);
+    --gap-x: 18px; /* لو تبغاه أقرب: 12px */
+  }
+  .apps-cards{
+    max-width: 1680px;
+    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(340px,1fr));
+  }
+}
+
+/* 5000+ CSS px (شاشات 8K بدون ريتينا/شاشات عرض ضخمة) */
+@media (min-width: 5000px){
+  :root{ --iphone-w: clamp(520px, 14vw, 760px); }
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(2000px);
+    --gap-x: 16px; /* هذا هو "المسافة بالنص" بين الآيفون والكروت */
+  }
+  .apps-cards{
+    max-width: 2000px;
     gap: 32px;
-    padding: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(360px,1fr));
+    margin: 0;
   }
-
-  .apps-cards {
-    max-width: 700px;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  }
-}
-/* ✅ توزيع الصفحة */
-.iphone16-page {
-  display: grid;
-  grid-template-columns: auto 1fr; /* آيفون ثابت + الكروت تاخذ باقي العرض */
-  gap: 40px;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px;
+  /* تكبير بسيط لعنوان القسم عشان ما يضيع على الشاشات الهائلة */
+  .cards-title h2{ font-size: clamp(40px, 2.2vw, 72px) !important; }
 }
 
-/* ✅ الشاشات الصغيرة (جوال) */
-@media (max-width: 768px) {
-  .iphone16-page {
-    display: block; /* الكروت فقط */
-    padding: 20px;
+/* إعداداتك الحالية (خليها كما هي لو عاجبتك) */
+@media (min-width: 1883px){
+  .iphone16-page{
+    grid-template-columns: var(--iphone-w) fit-content(1100px);
+    --gap-x: 8px;
   }
-
-  .iphone16-wrapper {
-    display: none; /* نخفي الايفون */
-  }
-
-  .apps-cards {
-    width: 100%;
-    padding: 0 16px;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .app-card {
-    padding: 18px;
-  }
-
-  .app-card-name {
-    font-size: 18px;
-  }
-
-  .app-card-desc {
-    font-size: 13px;
+  .apps-cards{
+    margin: 0;
+    max-width: 1100px;
   }
 }
-.app-card-button {
-  display: inline-block;
-  margin-top: 14px;
-  padding: 10px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6); /* من أزرق لسماوي */
-  border-radius: 10px;
-  text-decoration: none;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-  transition: all 0.3s ease;
-}
 
-.app-card-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
-  background: linear-gradient(135deg, #0ea5e9, #2563eb); /* أزرق أغمق */
-}
-/* ✅ أيقونة الزاوية */
-.card-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 10;
-}
-
-.badge-icon {
-  font-size: 18px;
-  color: #facc15; /* أصفر ذهبي للساعة الرملية */
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-}
-
-.badge-icon.verified {
-  color: #22c55e; /* أخضر عصري للعلامة ✅ */
+/* إعدادك فوق 2200px (عدّل الرقم لو تحب) */
+@media (min-width: 2200px){
+  .iphone16-page{ --gap-x: 50px; }
 }
