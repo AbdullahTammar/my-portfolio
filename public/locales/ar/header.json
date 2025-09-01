@@ -9,10 +9,11 @@
   "hireMe": "وظفني",
 
 "intro": [
+  "عضو في الهيئة السعودية للمهندسين.",
   "بكالوريوس في هندسة الحاسب الآلي.",
-  "Oracle APEX Professional معتمد ",
-  "Oracle Cloud Infrastructure (OCI) Professional معتمد ",
-  "Oracle Integration Cloud (OIC) Professional معتمد ",
+  "Oracle APEX Professional معتمد",
+  "Oracle Cloud Infrastructure (OCI) Professional معتمد",
+  "Oracle Integration Cloud (OIC) Professional معتمد",
   "شهادة في اللغة الإنجليزية – جامعة EC، كيب تاون (2015)."
 ],
 "commandPrompt": "❯ ~ $",
