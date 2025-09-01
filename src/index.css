@@ -24,23 +24,42 @@ html[dir="rtl"] {
   font-family: 'Tajawal', sans-serif; 
 }
 
-
-
+/* الجذور */
 html, body, #root, .app-root {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: hidden;  /* نخفي السكرول من الجذور */
 }
 
-.section {
+/* الحاوية المسؤولة عن التنقل */
+.scroll-container {
   height: 100vh;
   width: 100%;
+  overflow-y: scroll;         /* سكرول داخلي */
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+
+  /* إخفاء البار */
+  scrollbar-width: none;      /* Firefox */
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari */
+}
+
+/* كل سكشن فل سكرين */
+.section {
+  min-height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: transparent !important;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
@@ -52,7 +71,7 @@ html, body, #root, .app-root {
   }
 }
 
-
+/* الحاوية العامة */
 .layout-container {
   position: relative;
   min-height: 100vh;
@@ -67,7 +86,7 @@ html, body, #root, .app-root {
   background: transparent !important;
 }
 
-
+/* Scrollbar مخصص (في حال احتجت */
 .custom-scroll::-webkit-scrollbar {
   width: 6px;
 }

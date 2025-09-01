@@ -19,7 +19,7 @@
 }
 
 .section {
-  min-height: 100vh; /* ✅ كل صفحة فل سكرين */
+  min-height: 100vh;          /* كل سكشن يغطي شاشة كاملة */
   width: 100%;
   scroll-snap-align: start;
 
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
 
-  padding: 100px 20px;
+  padding: 100px 20px;        /* padding أساسي */
   background: transparent !important;
   box-sizing: border-box;
 }
@@ -38,7 +38,9 @@
   max-width: 100%;
 }
 
-/* Mobile */
+/* =========================
+   Mobile
+   ========================= */
 @media (max-width: 768px) {
   .scroll-container {
     scroll-snap-type: none;
@@ -74,6 +76,9 @@
   }
 }
 
+/* =========================
+   Desktop
+   ========================= */
 @media (min-width: 768px) {
   .section {
     flex-direction: row;
@@ -94,7 +99,9 @@
   }
 }
 
-/* Nav dots */
+/* =========================
+   Nav dots
+   ========================= */
 .nav-dots {
   position: fixed;
   top: 50%;
@@ -133,24 +140,36 @@
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
 }
 
-/* Home section */
+/* =========================
+   Home section
+   ========================= */
 .section#home {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 40px 20px 60px;
   min-height: 100vh;
   width: 100vw;
 }
 
-/* Projects (IphoneMockup container) */
+/* =========================
+   Skills & Experiences
+   ========================= */
+.section#skills,
+.section#experiences {
+  padding: 60px 20px;
+}
+
+/* =========================
+   Projects (IphoneMockup)
+   ========================= */
 .section#projects {
   min-height: 100vh;
-  padding: 60px 20px;
+  padding: 40px 20px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
@@ -162,9 +181,9 @@
   }
 }
 
-
-
-/* Plasma friendly spacing for sections & nav dots */
+/* =========================
+   Plasma friendly spacing
+   ========================= */
 @media (min-width: 2560px){
   .section{
     padding: 180px 120px; /* مساحة تنفس على 4K */
@@ -179,49 +198,33 @@
   .nav-dot{ width: 16px; height: 16px; }
 }
 
-
-
-
-
-
 /* =========================
-   Global ultra-wide tuning
-   ينطبق على كل الأقسام .section
+   Ultra-wide tuning
    ========================= */
-
-/* متغيرات عامة */
 :root{
-  --container-max: 1100px;   /* عرض العمود الواحد (يمين/يسار) */
-  --section-gap: 40px;       /* المسافة بين الأعمدة داخل .section */
-  --side-pad: 20px;          /* padding جانبي */
+  --container-max: 1100px;
+  --section-gap: 40px;
+  --side-pad: 20px;
 }
 
-/* عند الديسكتوب: استخدم المتغيرات بدال القيم الثابتة */
 @media (min-width: 768px){
   .section{
-    /* خليه دائماً بالنص وبعرض مقيد منطقي (عمودين + gap) */
     max-width: calc(var(--container-max) * 2 + var(--section-gap));
     margin-inline: auto;
-
-    /* المسافة بين الأعمدة */
     gap: var(--section-gap);
-
-    /* padding جانبي مرن ويدعم safe area */
     padding-inline: max(var(--side-pad), env(safe-area-inset-left))
                     max(var(--side-pad), env(safe-area-inset-right));
   }
 }
 
-/* 5K ريتينا تقريباً (5120 فعلية ≈ 2560 CSS px) */
 @media (min-width: 2560px){
   :root{
     --container-max: 1360px;
-    --section-gap: 24px;  /* قللها 16px لو تبغى أقل */
+    --section-gap: 24px;
     --side-pad: 32px;
   }
 }
 
-/* شاشات أوسع (6K/ألتراوايد كبيرة) */
 @media (min-width: 3200px){
   :root{
     --container-max: 1500px;
@@ -230,32 +233,57 @@
   }
 }
 
-/* 8K ريتينا/بدون ريتينا (CSS width ~3840+) */
 @media (min-width: 3840px){
   :root{
     --container-max: 1680px;
-    --section-gap: 20px;   /* لو تبغاه أقرب: 16px */
+    --section-gap: 20px;
     --side-pad: 40px;
   }
 }
 
-/* 5000+ CSS px (شاشات عرض ضخمة/LED walls) */
 @media (min-width: 5000px){
   :root{
-    --container-max: 2000px; /* نوسع محتوى العمود */
-    --section-gap: 18px;     /* المسافة بالنص بين العمودين */
+    --container-max: 2000px;
+    --section-gap: 18px;
     --side-pad: 48px;
   }
 
-  /* تكبير بسيط للعناوين عشان ما تضيع على البلازما */
   .section h1{ font-size: clamp(42px, 2.4vw, 96px); }
   .section h2{ font-size: clamp(30px, 1.9vw, 72px); }
 }
 
-/* ضبط خاص للشاشة الكبيرة اللي طلبتها قبل (تقليل المسافة بعد 1883px) */
+/* ضبط خاص للشاشات الكبيرة اللي طلبتها قبل */
 @media (min-width: 1883px){
   :root{
-    --container-max: 1100px; /* نفس اللي تحبه للـ projects */
-    --section-gap: 8px;      /* نفس تقليل المسافة اللي عجبك */
+    --container-max: 1100px;
+    --section-gap: 8px;
   }
 }
+
+/* ✅ Contact section افتراضي (لابتوب/ديسكتوب) */
+.section#contact {
+  min-height: 180px;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+/* 📱 موبايل */
+@media (max-width: 768px) {
+  .section#contact {
+    min-height: 280px;
+    padding: 30px 15px;
+  }
+}
+
+/* 📟 آيباد */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section#contact {
+    min-height: 520px;
+    padding: 35px 20px;
+  }
+}
+

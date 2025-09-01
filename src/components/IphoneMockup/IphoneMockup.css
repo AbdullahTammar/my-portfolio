@@ -1,5 +1,5 @@
 :root{
-  --iphone-w: clamp(280px, 24vw, 360px);
+  --iphone-w: clamp(260px, 18vw, 320px);
   --iphone-ratio: 2.0625;
   --iphone-h: calc(var(--iphone-w) * var(--iphone-ratio));
   --gap-x: 10px;   /* مسافة أفقية صغيرة جدًا بين الآيفون والكروت */
@@ -29,6 +29,7 @@
   .iphone16-page{ display:block; padding:20px 16px; }
   .iphone16-wrapper{ display:none; }   /* إخفاء الآيفون على الشاشات الصغيرة */
   .cards-title{ margin-bottom: 12px; } /* فراغ بسيط قبل الكروت */
+  
 }
 /* ===== Device Wrapper ===== */
 .iphone16-wrapper{
@@ -194,10 +195,18 @@
 .light .gesture-bar{ background:#444; } .dark .gesture-bar{ background:#ddd; }
 
 /* ===== Cards ===== */
-.apps-cards{
-  display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px; width:100%; max-width:1100px; margin: 0 auto; /* centered */
+.apps-cards {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--iphone-w) * 0.9), 1fr)   /* حجم الكرت ديناميكي */
+  );
+  gap: calc(var(--iphone-w) * 0.06);            /* مسافة بين الكروت متغيرة */
+  width: 100%;
+  max-width: calc(var(--iphone-w) * 3.5);       /* يظل فيه حد أقصى منطقي */
+  margin: 0 auto;
 }
+
 @media (max-width: 1024px){
   .apps-cards{ max-width: 820px; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); }
 }
@@ -205,17 +214,44 @@
   .apps-cards{ grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:16px; }
 }
 
-.app-card{
-  position:relative; background: rgba(15,23,42,0.7);
-  border-radius:14px; padding:22px;
-  border:1px solid rgba(34,211,238,0.3);
-  box-shadow:0 8px 24px rgba(0,0,0,0.35);
-  cursor:pointer; transition: transform .25s, box-shadow .25s;
+.app-card {
+  position: relative;
+  background: rgba(15,23,42,0.7);
+  border-radius: 14px;
+  padding: calc(var(--iphone-w) * 0.07);        /* padding متغير */
+  border: 1px solid rgba(34,211,238,0.3);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
 }
-.app-card:hover{ transform: translateY(-6px); box-shadow:0 12px 28px rgba(0,0,0,0.45); }
-.app-card-icon{ width:64px; height:64px; margin:0 auto 14px; border-radius:18px; display:flex; align-items:center; justify-content:center; background:rgba(30,41,59,0.8); color:#22d3ee; font-size:28px; box-shadow:0 4px 12px rgba(0,0,0,0.35); }
-.app-card-name{ font-size:20px; font-weight:700; color:#22d3ee; margin-bottom:4px; }
-.app-card-desc{ font-size:14px; color:#e2e8f0; line-height:1.6; }
+
+.app-card-icon {
+  width: calc(var(--iphone-w) * 0.22);
+  height: calc(var(--iphone-w) * 0.22);
+  margin: 0 auto calc(var(--iphone-w) * 0.05);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30,41,59,0.8);
+  color: #22d3ee;
+  font-size: calc(var(--iphone-w) * 0.09);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+
+.app-card-name {
+  font-size: calc(var(--iphone-w) * 0.07);
+  font-weight: 700;
+  color: #22d3ee;
+  margin-bottom: 4px;
+}
+
+.app-card-desc {
+  font-size: calc(var(--iphone-w) * 0.045);
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
 .card-badge{ position:absolute; top:12px; right:12px; z-index:10; }
 .badge-icon{ font-size:18px; color:#facc15; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
 .badge-icon.verified{ color:#22c55e; }
@@ -297,11 +333,10 @@
     --gap-x: 8px; /* جرّب 6px أو 4px لو تبغى أقل */
   }
 
-  .apps-cards{
-    /* لا نوسّط داخل العمود، التوسيط يصير على مستوى الشبكة كلها */
-    margin: 0;
-    max-width: 1100px;  /* نفس القيمة اللي تستخدمها للكروت */
+  .apps-cards {
+    max-width: 900px; /* بدل 1100 */
   }
+  
 }
 
 /* أضيق أكثر للشاشات الأعرض جدًا */
@@ -466,3 +501,38 @@
 @media (min-width: 2200px){
   .iphone16-page{ --gap-x: 50px; }
 }
+
+
+
+/* الشاشات المتوسطة: خلي الكروت أصغر وتترتب بشكل أفضل */
+@media (min-width: 768px) and (max-width: 1280px) {
+  .apps-cards {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(180px, 1fr)   /* صغرنا الكرت أكثر */
+    );
+    gap: 14px;             /* قللنا المسافة */
+    max-width: 100%;       /* خليها تستغل العرض كله */
+  }
+
+  .app-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .app-card-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .app-card-name {
+    font-size: 17px;
+  }
+
+  .app-card-desc {
+    font-size: 13px;
+  }
+}
+
