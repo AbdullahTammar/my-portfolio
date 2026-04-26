@@ -76,16 +76,24 @@ function Kamel() {
           alt="Kamel Logo"
           style={{ height: 46, objectFit: "contain" }}
         />
-        <FiExternalLink
-          size={24}
-          color="#25bbe0"
-          style={{
-            cursor: "pointer",
-            padding: 6,
-            borderRadius: "50%",
-            background: "rgba(37,187,224,0.1)",
-          }}
-        />
+        <a
+          href="https://kamel-system.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Kamel platform"
+          style={{ display: "inline-flex" }}
+        >
+          <FiExternalLink
+            size={24}
+            color="#25bbe0"
+            style={{
+              cursor: "pointer",
+              padding: 6,
+              borderRadius: "50%",
+              background: "rgba(37,187,224,0.1)",
+            }}
+          />
+        </a>
       </div>
 
       {/* ✅ Summary Cards (صغار + بالنص) */}
