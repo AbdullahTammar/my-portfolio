@@ -5,7 +5,7 @@ import DoctorAppointments from "../../pages/DoctorAppointments";
 import Monexa from "../../pages/Monexa";
 import Stoxly from "../../pages/Stoxly";
 import TicTacToe from "../../pages/TicTacToe";
-import { FaChartLine, FaGamepad, FaHourglassHalf, FaCheckCircle, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
+import { FaChartLine, FaGamepad, FaHourglassHalf, FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 /* Icons */
@@ -160,7 +160,6 @@ function IphoneMockup() {
   ];
 
   const activeAppData = apps.find((a) => a.key === activeApp);
-  const triggerShake = (key) => { setShakeApp(key); setTimeout(() => setShakeApp(null), 800); };
 
   return (
     <div className="iphone16-root w-full">
@@ -285,7 +284,7 @@ function IphoneMockup() {
                 <div className="app-card-name">{app.name}</div>
                 <div className="app-card-desc">{t(`appsDesc.${app.key.toLowerCase()}`)}</div>
                 {app.key === "Kamel" && (
-                  <a href="https://oracleapex.com/ords/r/helptest/kamel/home?" target="_blank" rel="noopener noreferrer" className="app-card-button">
+                  <a href="https://kamel-system.com/" target="_blank" rel="noopener noreferrer" className="app-card-button">
                     {t("visit")}
                   </a>
                 )}
@@ -293,29 +292,6 @@ function IphoneMockup() {
             );
           })}
         </div>
-      </div>
-
- {/* Footer (contact) */}
-<div className="contact-footer">
-  <span>{t("footer.message")}</span>
-  <div className="contact-footer__links">
-    <a
-      href="https://t.me/Uxiiic"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="contact-footer__link contact-footer__link--tg"
-    >
-      <FaTelegramPlane /> {t("footer.telegram")}
-    </a>
-    <a
-      href="https://wa.me/966567387950"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="contact-footer__link contact-footer__link--wa"
-    >
-      <FaWhatsapp /> {t("footer.whatsapp")}
-    </a>
-  </div>
       </div>
     </div>
   );
