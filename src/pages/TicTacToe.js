@@ -2,6 +2,56 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaTimes, FaRegCircle, FaRedo, FaGamepad } from "react-icons/fa";
 
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let [a, b, c] of lines) {
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  if (squares.every((cell) => cell)) return "Draw";
+  return null;
+}
+
+function minimaxBoard(newBoard, isMaximizing) {
+  const result = calculateWinner(newBoard);
+  if (result === "X") return -10;
+  if (result === "O") return 10;
+  if (result === "Draw") return 0;
+
+  const emptyCells = newBoard
+    .map((cell, idx) => (cell === null ? idx : null))
+    .filter((idx) => idx !== null);
+
+  if (isMaximizing) {
+    let bestScore = -Infinity;
+    for (let idx of emptyCells) {
+      newBoard[idx] = "O";
+      const score = minimaxBoard(newBoard, false);
+      newBoard[idx] = null;
+      bestScore = Math.max(score, bestScore);
+    }
+    return bestScore;
+  }
+  let bestScore = Infinity;
+  for (let idx of emptyCells) {
+    newBoard[idx] = "X";
+    const score = minimaxBoard(newBoard, true);
+    newBoard[idx] = null;
+    bestScore = Math.min(score, bestScore);
+  }
+  return bestScore;
+}
+
 function TicTacToe() {
   const { i18n } = useTranslation();
   const isArabic = i18n.language === "ar";
@@ -12,27 +62,6 @@ function TicTacToe() {
   const [isUserTurn, setIsUserTurn] = useState(true);
   const [winner, setWinner] = useState(null);
 
-  // ✅ دالة تحدد الفائز
-  const calculateWinner = (squares) => {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let [a, b, c] of lines) {
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
-    }
-    if (squares.every((cell) => cell)) return "Draw";
-    return null;
-  };
-
   // ✅ اللاعب يلعب X
   const handleClick = (index) => {
     if (!isUserTurn || board[index] || winner) return;
@@ -41,38 +70,6 @@ function TicTacToe() {
     newBoard[index] = "X";
     setBoard(newBoard);
     setIsUserTurn(false);
-  };
-
-  // ✅ الكمبيوتر يلعب O (MiniMax = صعوبة عالية)
-  const minimax = (newBoard, isMaximizing) => {
-    const result = calculateWinner(newBoard);
-    if (result === "X") return -10;
-    if (result === "O") return 10;
-    if (result === "Draw") return 0;
-
-    const emptyCells = newBoard
-      .map((cell, idx) => (cell === null ? idx : null))
-      .filter((idx) => idx !== null);
-
-    if (isMaximizing) {
-      let bestScore = -Infinity;
-      for (let idx of emptyCells) {
-        newBoard[idx] = "O";
-        let score = minimax(newBoard, false);
-        newBoard[idx] = null;
-        bestScore = Math.max(score, bestScore);
-      }
-      return bestScore;
-    } else {
-      let bestScore = Infinity;
-      for (let idx of emptyCells) {
-        newBoard[idx] = "X";
-        let score = minimax(newBoard, true);
-        newBoard[idx] = null;
-        bestScore = Math.min(score, bestScore);
-      }
-      return bestScore;
-    }
   };
 
   useEffect(() => {
@@ -93,7 +90,7 @@ function TicTacToe() {
         for (let idx of emptyCells) {
           const newBoard = [...board];
           newBoard[idx] = "O";
-          let score = minimax(newBoard, false);
+          let score = minimaxBoard(newBoard, false);
           if (score > bestScore) {
             bestScore = score;
             move = idx;

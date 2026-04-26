@@ -9,7 +9,7 @@ function TerminalCard() {
 
   const intro = useMemo(
     () => t("intro", { returnObjects: true }) || [],
-    [t, i18n.language]
+    [t]
   );
 
   const [typedText, setTypedText] = useState([]);

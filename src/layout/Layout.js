@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import HeroBackground from "../components/HeroBackground/HeroBackground";
 import Navbar from "../components/Navbar/Navbar";
 import IphoneMockup from "../components/IphoneMockup/IphoneMockup";
-import Footer  from "../components/Footer/Footer";
 import Contact from "../pages/Contact"
 
 import Home from "../pages/Home";

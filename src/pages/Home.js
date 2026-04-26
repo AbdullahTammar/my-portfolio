@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaSnapchatGhost } from "react-icons/fa";
@@ -8,25 +8,7 @@ import TerminalCard from "../components/TerminalCard/TerminalCard";
 
 function Home() {
   const { t, i18n } = useTranslation("header");
-  const [isDark, setIsDark] = useState(true);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      document.documentElement.classList.remove("dark");
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    }
-  }, []);
-
-  const toggleLanguage = () => {
-    const nl = i18n.language === "en" ? "ar" : "en";
-    i18n.changeLanguage(nl);
-    document.documentElement.dir = nl === "ar" ? "rtl" : "ltr";
-  };
 
   const handleMouseMove = (e) => {
     const moveX = (e.clientX / window.innerWidth - 0.5) * 10;
