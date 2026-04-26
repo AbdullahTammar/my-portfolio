@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import TerminalCard from "../components/TerminalCard/TerminalCard";
+import TerminalCard from "../TerminalCard/TerminalCard";
 
 function Home() {
   const { t, i18n } = useTranslation("header");
-  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
       document.documentElement.classList.remove("dark");
-      setIsDark(false);
     } else {
       document.documentElement.classList.add("dark");
-      setIsDark(true);
     }
   }, []);
 
